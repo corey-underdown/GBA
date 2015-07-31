@@ -2,7 +2,7 @@
 # Makefile for first.gba
 #
 
-PATH := $(DEVKITARM)  C:\Users\Chris\Desktop\Uni\Trimester 5 2015\GBA DEV\devkitPro\devkitARM/bin:$(PATH)
+PATH := $(DEVKITARM)  D:\Users\Corey\Downloads\devkitPro\devkitPro\devkitARM/bin:$(PATH)
 
 # --- Project details -------------------------------------------------
 

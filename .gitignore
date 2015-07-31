@@ -4,7 +4,7 @@
 *.obj
 *.elf
 *.gba
-Makefile
+*Makefile
 
 # Precompiled Headers
 *.gch

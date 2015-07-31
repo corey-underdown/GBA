@@ -1,6 +1,8 @@
+#include "toolbox.h"
+
 int main()
 {
-    *(unsigned int*)0x04000000 = 0x0403;
+    *(unsigned int*)MEM_IO = 0x0403;
 
     ((unsigned short*)0x06000000)[120+80*240] = 0x001F;
     ((unsigned short*)0x06000000)[136+80*240] = 0x03E0;

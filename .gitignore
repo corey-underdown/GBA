@@ -3,6 +3,8 @@
 *.ko
 *.obj
 *.elf
+*.gba
+Makefile
 
 # Precompiled Headers
 *.gch

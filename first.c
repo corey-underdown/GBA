@@ -9,7 +9,13 @@ int main()
     ((unsigned short*)0x06000000)[136+96*240] = 0x001F;
     ((unsigned short*)0x06000000)[140+96*240] = 0x001F;
 
+    
+
     while(1);
+
+
+
+
 
     return 0;
 }

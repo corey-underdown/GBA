@@ -13,7 +13,7 @@ int main()
 	    {
 	    	for(j = 0; j < SCREEN_HEIGHT; j++)
 	    	{
-	    		((unsigned short*)MEM_VRAM)[i+j*SCREEN_HEIGHT] = CLR_WHITE;
+	    		((unsigned short*)MEM_VRAM)[j+i*SCREEN_HEIGHT] = CLR_WHITE;
 	    	}
 	    }
     }

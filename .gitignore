@@ -4,7 +4,8 @@
 *.obj
 *.elf
 *.gba
-*Makefile
+*Makefile*
+*Make*
 
 # Precompiled Headers
 *.gch
@@ -29,6 +30,7 @@
 *.i*86
 *.x86_64
 *.hex
+*Makefile*
 
 # Debug files
 *.dSYM/

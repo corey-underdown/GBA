@@ -1,23 +1,22 @@
+#include <stdio.h>
 #include "toolbox.h"
 
 int main()
 {
     *(unsigned int*)MEM_IO = 0x0403;
 
-    ((unsigned short*)0x06000000)[120+80*240] = 0x001F;
-    ((unsigned short*)0x06000000)[136+80*240] = 0x03E0;
-    ((unsigned short*)0x06000000)[120+96*240] = 0x7C00;
-
-    ((unsigned short*)0x06000000)[136+96*240] = 0x001F;
-    ((unsigned short*)0x06000000)[140+96*240] = 0x001F;
-
-    
-
-    while(1);
-
-
-
-
+    while(1)
+    {
+		int i;
+	    int j;
+	    for(i = 0; i < SCREEN_WIDTH; i++)
+	    {
+	    	for(j = 0; j < SCREEN_HEIGHT; j++)
+	    	{
+	    		((unsigned short*)MEM_VRAM)[j+i*SCREEN_HEIGHT] = CLR_WHITE;
+	    	}
+	    }
+    }
 
     return 0;
 }

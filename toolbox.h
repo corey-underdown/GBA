@@ -47,10 +47,11 @@ typedef u16 COLOR;
 
 #define SCREEN_WIDTH   240
 #define SCREEN_HEIGHT  160
+#define SCREEN_TOTAL   38400
 
 #define vid_mem     ((u16*)MEM_VRAM)
 
-INLINE void m3_plot(int x, int y, COLOR clr)
+INLINE void setPixel(int x, int y, COLOR clr)
 {   vid_mem[y*SCREEN_WIDTH+x]= clr;    }
 
 #define CLR_BLACK   0x0000

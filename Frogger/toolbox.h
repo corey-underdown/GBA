@@ -21,6 +21,8 @@ typedef u16 COLOR;
 #define SPRITE_OAM 			0x07000000//Sprite object Data
 #define SPRITE_TILEDATA 	0x06010000//Sprite Tiles ie actual sprites
 #define SPRITE_PAL_DATA 	0x05000200
+#define TILE_PAL_DATA		0x05000000
+#define TILE_LOCATION		0x06000000
 
 
 //========================================================================

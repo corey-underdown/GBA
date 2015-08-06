@@ -3,34 +3,45 @@
 #include "images/TestImage.h"
 #include "SpriteFactory.h"
 
-
+typedef struct 
+{
+	unsigned short tile:10;
+	unsigned char horizontalFlip:1;
+	unsigned char verticalFlip:1;
+	unsigned char palette:4;
+}TileData;
 
 int main()
 {
-	int i;
 	
-	//Enable SPtrites
+	//Enable Sprites
     REG_DISPCNT = 0x1f00;
-
 
 	waitVBlank();
 
  	//HACK to create temporary tile
-	memcpy((void*)SPRITE_TILEDATA, (void*)BitmapB,32);  
+	memcpy(((void*)TILE_LOCATION), (void*)BitmapA,32);  
 
 	//HACK create palette
 	shortCopy((u16*)SPRITE_PAL_DATA, (u16*)Palette, 256); 
 
 	//set background palette  
-	((volatile unsigned short*)(0x05000000))[0] = CLR_RED;
+	shortCopy((void*)TILE_PAL_DATA, (void*)Palette, 256);
 
+	TileData tData;
+	tData.tile = 0;
+	tData.horizontalFlip = 0;
+	tData.verticalFlip = 0;
+	tData.palette = 1;
+
+	shortCopy((u16*)SPRITE_TILEDATA, (u16*)&tData, 32);
 
 	//Sprite Factory Using==================================================
-	SpriteFactory* spf = Ghost_OAM_Create();
+	//SpriteFactory* spf = Ghost_OAM_Create();
 
-	SpriteData* temp = Ghost_OAM_GetSprite_int(spf, 0); 
+	//SpriteData* temp = Ghost_OAM_GetSprite_int(spf, 0); 
 
-	temp->x = 30;
+	/*temp->x = 30;
     temp->y = 20;
    	temp->enableRotation = 0;
 	temp->dubScale = 0;
@@ -46,7 +57,7 @@ int main()
 	temp->rotation = 0;
 	
 	Ghost_OAM_CopytoOAM(spf);
-
+	*/
 
 
 	//Gregs Program ===============================================
@@ -76,15 +87,15 @@ int main()
 	while(1)
     {
     	//Sprite Factory Code================================
-    	temp->x = x;
+    	//temp->x = x;
 
-    	Ghost_OAM_SetSprite_int(spf, 0, temp);
+    	//Ghost_OAM_SetSprite_int(spf, 0, temp);
 		x++;
 		if(x>240)
 			x=0;
 		
 		waitVBlank();
-		Ghost_OAM_CopytoOAM(spf);
+		//Ghost_OAM_CopytoOAM(spf);
 		waitVDraw();
 
 		//Gregs Code==========================================

@@ -15,10 +15,11 @@ typedef unsigned char   u8;
 typedef unsigned short  u16;
 typedef unsigned int    u32;
 
+
 typedef u16 COLOR;
 
-#define SPRITE_OAM 			0x07000000
-#define SPRITE_TILEDATA 	0x06010000
+#define SPRITE_OAM 			0x07000000//Sprite object Data
+#define SPRITE_TILEDATA 	0x06010000//Sprite Tiles ie actual sprites
 #define SPRITE_PAL_DATA 	0x05000200
 
 #define INTERUPT_MODE     *((volatile u16*)(MEM_IO+0x0004))

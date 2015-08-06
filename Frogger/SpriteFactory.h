@@ -1,6 +1,7 @@
 #ifndef SPRITEFACTORY_H
 #define SPRITEFACTORY_H
 
+#include <string.h>
 #include "toolbox.h"
 
 
@@ -22,16 +23,36 @@ typedef struct
 	unsigned short rotation;//actual rotation
 }SpriteData;
 
-SpriteData[128]* Ghost_OAM_Create()
+
+
+typedef struct
 {
-	return new SpriteData[128];
+	SpriteData* ghostOAM[128];
+}SpriteFactory;
+
+
+SpriteFactory* Ghost_OAM_Create()
+{
+	SpriteFactory* temp;
+	return temp;
 }
 
-SpriteData* Ghost_OAM_GetSprite(SpriteData[128]* list, int number)
+SpriteData* Ghost_OAM_GetSprite_int(SpriteFactory* factory, int number)//0 -> 127
 {
-
-	
+	return factory->ghostOAM[number];
 }
+
+void Ghost_OAM_SetSprite_int(SpriteFactory* factory, int number, SpriteData* spriteD)
+{
+	*(factory->ghostOAM[number]) = *spriteD;
+}
+
+void Ghost_OAM_CopytoOAM(SpriteFactory* factory)
+{
+	memcpy ((void*)SPRITE_TILEDATA, ((void*)factory->ghostOAM[0]), (sizeof(SpriteData) * 128));
+
+}
+
 
 
 

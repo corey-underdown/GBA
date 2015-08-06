@@ -17,6 +17,14 @@ typedef unsigned int    u32;
 
 typedef u16 COLOR;
 
+#define SPRITE_OAM 			0x07000000
+#define SPRITE_TILEDATA 	0x06010000
+#define SPRITE_PAL_DATA 	0x05000200
+
+#define INTERUPT_MODE     *((volatile u16*)(MEM_IO+0x0004))
+
+#define VCOUNT 				0x04000006
+
 #define INLINE static inline
 
 // === (from tonc_memmap.h) ===========================================

@@ -7,7 +7,6 @@
 
 int main()
 {
-
 	int i;
 	
 	//Enable SPtrites
@@ -17,12 +16,12 @@ int main()
 	waitVBlank();
 
  	//HACK to create temporary tile
-	memcpy((void*)SPRITE_TILEDATA, (void*)Bitmap,32);  
+	memcpy((void*)SPRITE_TILEDATA, (void*)BitmapB,32);  
 
 	//HACK create palette
-	shortCopy((u16*)SPRITE_PAL_DATA, (u16*)Palette, 256);
+	shortCopy((u16*)SPRITE_PAL_DATA, (u16*)Palette, 256); 
 
-	//set background palette
+	//set background palette  
 	((volatile unsigned short*)(0x05000000))[0] = CLR_RED;
 
 

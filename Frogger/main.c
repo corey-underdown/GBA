@@ -23,7 +23,7 @@ int main()
 	memcpy(((void*)TILE_LOCATION), (void*)BitmapA,32);  
 
 	//HACK create palette
-	shortCopy((u16*)SPRITE_PAL_DATA, (u16*)Palette, 256); 
+	//shortCopy((u16*)SPRITE_PAL_DATA, (u16*)Palette, 256); 
 
 	//set background palette  
 	shortCopy((void*)TILE_PAL_DATA, (void*)Palette, 256);
@@ -31,10 +31,10 @@ int main()
 	TileData tData;
 	tData.tile = 0;
 	tData.horizontalFlip = 0;
-	tData.verticalFlip = 0;
+	tData.verticalFlip = 1;
 	tData.palette = 1;
 
-	shortCopy((u16*)SPRITE_TILEDATA, (u16*)&tData, 32);
+	//shortCopy((u16*)SPRITE_TILEDATA, (u16*)&tData, 32);
 
 	//Sprite Factory Using==================================================
 	//SpriteFactory* spf = Ghost_OAM_Create();
@@ -93,6 +93,10 @@ int main()
 		x++;
 		if(x>240)
 			x=0;
+
+		//u16* ttt = (void*)0x04000018;
+
+		//*((volatile u16*)0x04000018) = x;
 		
 		waitVBlank();
 		//Ghost_OAM_CopytoOAM(spf);

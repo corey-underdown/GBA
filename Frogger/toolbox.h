@@ -24,6 +24,8 @@ typedef u16 COLOR;
 #define TILE_PAL_DATA		0x05000000
 #define TILE_LOCATION		0x06000000
 
+//#define BG_SCROLL			(void*)0x04000010h
+
 
 //========================================================================
 

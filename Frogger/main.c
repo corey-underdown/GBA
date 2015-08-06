@@ -87,17 +87,30 @@ int main()
     	
     	if(isKeyDown(KEY_UP) == 1)
     	{
-    		y--;
+    		if(isKeyDown(KEY_R) == 1)
+    			y-=2;
+    		else
+    			y--;
     	}else if(isKeyDown(KEY_DOWN) == 1)
     	{
-    		y++;
+    		if(isKeyDown(KEY_R) == 1)
+    			y+=2;
+    		else
+    			y++;
     	}else if(isKeyDown(KEY_RIGHT) == 1)
     	{
-    		x++;
+    		if(isKeyDown(KEY_R) == 1)
+    			x+=2;
+    		else
+    			x++;
     	}else if(isKeyDown(KEY_LEFT) == 1)
     	{
-    		x--;
+    		if(isKeyDown(KEY_R) == 1)
+    			x-=2;
+    		else
+    			y--;
     	}
+
     	mysp.x = x;
     	mysp.y = y;
 		if(x > SCREEN_WIDTH)

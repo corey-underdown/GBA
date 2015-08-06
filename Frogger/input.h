@@ -10,7 +10,7 @@
 #define KEY_L 512
 int* KEYS = (int*)0x04000130;
 
-int isKeyDown(int key)
+char isKeyDown(unsigned short key)
 {
 	if(!((*KEYS) & key))
     	return 1;

@@ -22,6 +22,9 @@ typedef u16 COLOR;
 #define SPRITE_TILEDATA 	0x06010000//Sprite Tiles ie actual sprites
 #define SPRITE_PAL_DATA 	0x05000200
 
+
+//========================================================================
+
 #define INTERUPT_MODE     *((volatile u16*)(MEM_IO+0x0004))
 
 #define VCOUNT 				0x04000006
@@ -74,5 +77,29 @@ INLINE void m3_plot(int x, int y, COLOR clr)
 
 INLINE COLOR RGB15(u32 red, u32 green, u32 blue)
 {   return red | (green<<5) | (blue<<10);   }
+
+
+//=======(Functions)==================================================
+
+INLINE void waitVBlank()
+{
+	while(*(( volatile u16*)(VCOUNT)) <= 159)
+	{}
+}
+
+INLINE void waitVDraw()
+{
+	while(*(( volatile u16*)(VCOUNT)) > 159)
+	{}
+}
+
+INLINE void shortCopy(u16 *dest, u16 *src, int shortCount)
+{
+	int i;
+	for(i=0;i<shortCount;++i)
+	{
+		*dest++ = *src++;
+	}
+}
 
 #endif // TOOLBOX_H

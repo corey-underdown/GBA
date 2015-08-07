@@ -19,11 +19,20 @@ typedef unsigned int    u32;
 typedef u16 COLOR;
 
 #define SPRITE_OAM 			0x07000000//Sprite object Data
-#define SPRITE_TILEDATA 	0x06010000//Sprite Tiles ie actual sprites
+#define SPRITE_BITMAPS	 	0x06010000//Sprite Tiles ie actual sprites
 #define SPRITE_PAL_DATA 	0x05000200
-#define TILE_PAL_DATA		0x05000000
-#define TILE_LOCATION		0x06000000
-#define TILE_LOCATION_PUT	0x06002000
+#define BG_PAL_DATA			0x05000000
+#define BG_TILE_TEXT		0x06000000
+#define BG_TILE_GAME		0x06004000
+#define BG_MAP_0			0x06006000
+#define BG_MAP_1			0x06006800
+#define BG_MAP_2			0x06007000
+#define BG_MAP_3			0x06007800
+
+#define BG_MAP_PROP_0 		0x04000008
+#define BG_MAP_PROP_1 		0x0400000A
+#define BG_MAP_PROP_2 		0x0400000C
+#define BG_MAP_PROP_3 		0x0400000E
 
 //#define BG_SCROLL			(void*)0x04000010h
 

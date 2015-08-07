@@ -3,6 +3,7 @@
 #include "images/TestImage.h"
 #include "SpriteFactory.h"
 
+
 typedef struct 
 {
 	unsigned short tile:10;
@@ -36,7 +37,8 @@ int main()
 	memcpy(((void*)BG_TILE_TEXT) + 64, (void*)BitmapB,32); 
 
 	//HACK create palette
-	//shortCopy((u16*)SPRITE_PAL_DATA, (u16*)Palette, 256); 
+	shortCopy((u16*)SPRITE_PAL_DATA, (u16*)Palette, 256);
+	shortCopy((u16*)SPRITE_BITMAPS, (u16*)Bitmap, 32);
 
 	//set background palette  
 	shortCopy((void*)BG_PAL_DATA, (void*)Palette, 256);
@@ -67,14 +69,16 @@ int main()
 	mp0.areaOverflow = 0;
 	mp0.sizeMap = 0;
 
+	
+
 	shortCopy((u16*)BG_MAP_PROP_0, (u16*)&mp0, 1);
 
 	//Sprite Factory Using==================================================
-	//SpriteFactory* spf = Ghost_OAM_Create();
+	
 
-	//SpriteData* temp = Ghost_OAM_GetSprite_int(spf, 0); 
+	SpriteData* temp = Ghost_OAM_GetSprite_int(0); 
 
-	/*temp->x = 30;
+	temp->x = 30;
 	temp->y = 20;
 	temp->enableRotation = 0;
 	temp->dubScale = 0;
@@ -89,8 +93,8 @@ int main()
 	temp->pallet = 0;
 	temp->rotation = 0;
 	
-	Ghost_OAM_CopytoOAM(spf);
-	*/
+	Ghost_OAM_CopytoOAM();
+	
 
 
 	//Gregs Program ===============================================

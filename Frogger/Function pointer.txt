@@ -1,0 +1,11 @@
+typedef void (*SPF_Update)(SpriteData* sd);
+
+typedef struct
+{
+	SpriteData ghostOAM[128];
+
+	SPF_Update Update = CAR_UPDATE;
+
+}SpriteFactory;
+
+g_spf->Update(g_spf);

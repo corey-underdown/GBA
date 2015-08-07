@@ -22,5 +22,4 @@ void Ghost_OAM_SetSprite_int(int number, SpriteData* spriteD)
 void Ghost_OAM_CopytoOAM()
 {
 	memcpy ((char*)SPRITE_OAM, ((char*)&(g_SpriteFactory.ghostOAM[0])), (sizeof(SpriteData) * 128));
-	//shortCopy((u16*)SPRITE_OAM, (u16*)&(factory->ghostOAM[0]),4);
 }

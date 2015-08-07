@@ -1,5 +1,5 @@
-#ifndef SPRITEFACTORY_H
-#define SPRITEFACTORY_H
+#ifndef GOFACTORY_H
+#define GOFACTORY_H
 
 #include <string.h>
 #include "toolbox.h"
@@ -23,15 +23,24 @@ typedef struct
 	unsigned short rotation;//actual rotation
 }SpriteData;
 
+typedef struct 
+{
+	SpriteData* sprite;
+	float z_Depth;
+
+
+}GameObject;
 
 typedef struct
 {
 	SpriteData ghostOAM[128];
-}SpriteFactory;
+	GameObject gOList[128];
 
-extern SpriteFactory g_SpriteFactory;
+}GOFactory;
 
-SpriteFactory* Ghost_OAM_Create();
+extern GOFactory g_GOFactory;
+
+void GOFactory_Init();
 
 SpriteData* Ghost_OAM_GetSprite_int( int number);//0 -> 127
 

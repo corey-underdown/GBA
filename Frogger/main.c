@@ -2,6 +2,7 @@
 #include "toolbox.h"
 #include "images/TestImage.h"
 #include "SpriteFactory.h"
+#include "TextManager.h"
 
 
 typedef struct 
@@ -50,9 +51,11 @@ int main()
 	tData.palette = 0;
 
 	shortCopy((u16*)BG_MAP_0, (u16*)&tData, 1);
-((u16*)BG_MAP_0)[0]=0;
-((u16*)BG_MAP_0)[1]=1;
-((u16*)BG_MAP_0)[2]=2;
+	//((u16*)BG_MAP_0)[0]=1;
+	//((u16*)BG_MAP_0)[1]=1;
+	//((u16*)BG_MAP_0)[2]=2;
+
+	PrintText("abcd"); 
 
 
 	MapProperties mp0;
@@ -68,7 +71,6 @@ int main()
 	mp0.startAdressTileMap = 12;
 	mp0.areaOverflow = 0;
 	mp0.sizeMap = 0;
-
 	
 
 	shortCopy((u16*)BG_MAP_PROP_0, (u16*)&mp0, 1);

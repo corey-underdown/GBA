@@ -45,10 +45,10 @@ typedef u16 COLOR;
 #define ENUM_GOTYPE_CROC			6
 
 #define ENUM_DIR_UP		0
-#define ENUM_DIR_DOWN	0
-#define ENUM_DIR_LEFT	0
-#define ENUM_DIR_RIGHT	0
-#define ENUM_DIR_NONE	0
+#define ENUM_DIR_DOWN	1
+#define ENUM_DIR_LEFT	2
+#define ENUM_DIR_RIGHT	3
+#define ENUM_DIR_NONE	4
 
 #define TRUE 	1
 #define FALSE 	0

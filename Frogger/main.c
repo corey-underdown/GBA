@@ -76,8 +76,9 @@ int main()
 
 	shortCopy((u16*)BG_MAP_PROP_0, (u16*)&mp0, 1);
 
-	//Sprite Factory Using==================================================
+	//Game Object Factory Using==================================================
 	
+	//Setting Up Sprites
 	GOFactory_Init();
 
 	GameObject* player = GOFactory_New(ENUM_GOTYPE_FROGGER, 20,30,ENUM_DIR_LEFT, 20);
@@ -114,10 +115,7 @@ int main()
 	
 	while(1)
 	{
-		//Sprite Factory Code================================
-		//temp->x = x;
-
-		//Ghost_OAM_SetSprite_int(spf, 0, temp);
+		//Gmae Object Factory Code================================
 		x++;
 		if(x>240)
 			x=0;
@@ -125,10 +123,7 @@ int main()
 		player->sprite->x = x;
 		other->sprite->y = x;
 
-		//u16* ttt = (void*)0x04000018;
 
-		//*((volatile u16*)0x04000018) = x;
-		
 		waitVBlank();
 		GOFactory_CopytoOAM();
 		waitVDraw();

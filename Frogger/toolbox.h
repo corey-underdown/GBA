@@ -34,6 +34,25 @@ typedef u16 COLOR;
 #define BG_MAP_PROP_2 		0x0400000C
 #define BG_MAP_PROP_3 		0x0400000E
 
+//=======Game object type Enum
+
+#define ENUM_GOTYPE_FROGGER			0
+#define ENUM_GOTYPE_TURTLE_SAFE		1
+#define ENUM_GOTYPE_TURTLE_TEMP		2
+#define ENUM_GOTYPE_LOG_SMALL		3
+#define ENUM_GOTYPE_LOG_MED			4
+#define ENUM_GOTYPE_LOG_LARGE		5
+#define ENUM_GOTYPE_CROC			6
+
+#define ENUM_DIR_UP		0
+#define ENUM_DIR_DOWN	0
+#define ENUM_DIR_LEFT	0
+#define ENUM_DIR_RIGHT	0
+#define ENUM_DIR_NONE	0
+
+#define TRUE 	1
+#define FALSE 	0
+
 //#define BG_SCROLL			(void*)0x04000010h
 
 

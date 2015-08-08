@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include "toolbox.h"
 #include "images/TestImage.h"
-#include "SpriteFactory.h"
+#include "GOFactory.h"
 #include "TextManager.h"
+
 
 
 typedef struct 
@@ -77,25 +78,13 @@ int main()
 
 	//Sprite Factory Using==================================================
 	
+	GOFactory_Init();
 
-	SpriteData* temp = Ghost_OAM_GetSprite_int(0); 
+	GameObject* player = GOFactory_New(ENUM_GOTYPE_FROGGER, 20,30,ENUM_DIR_LEFT, 20);
 
-	temp->x = 30;
-	temp->y = 20;
-	temp->enableRotation = 0;
-	temp->dubScale = 0;
-	temp->alpha = 0;
-	temp->mosaic = 0;//off
-	temp->colourMode = 0;//16bit
-	temp->shape = 0; //square
-	temp->special = 0;
-	temp->size = 0;// = 8 pixels wide;
-	temp->tileIndex = 0;	
-	temp->priority = 0;
-	temp->pallet = 0;
-	temp->rotation = 0;
-	
-	Ghost_OAM_CopytoOAM();
+	GameObject* other = GOFactory_New(ENUM_GOTYPE_FROGGER, 80,80,ENUM_DIR_LEFT, 20);
+
+	GOFactory_CopytoOAM();
 	
 
 
@@ -133,12 +122,15 @@ int main()
 		if(x>240)
 			x=0;
 
+		player->sprite->x = x;
+		other->sprite->y = x;
+
 		//u16* ttt = (void*)0x04000018;
 
 		//*((volatile u16*)0x04000018) = x;
 		
 		waitVBlank();
-		//Ghost_OAM_CopytoOAM(spf);
+		GOFactory_CopytoOAM();
 		waitVDraw();
 
 		//Gregs Code==========================================

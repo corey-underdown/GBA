@@ -90,8 +90,10 @@ typedef u16 COLOR;
 
 // === (from tonc_video.h) ============================================
 
-#define SCREEN_WIDTH   240
-#define SCREEN_HEIGHT  160
+#define SCREEN_WIDTH   		240
+#define SCREEN_HEIGHT  		160
+#define SCREEN_WIDTH_TILES	30
+#define SCREEN_HEIGHT_TILES	20
 
 #define vid_mem     ((u16*)MEM_VRAM)
 

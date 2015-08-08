@@ -52,11 +52,11 @@ int main()
 	tData.palette = 0;
 
 	shortCopy((u16*)BG_MAP_0, (u16*)&tData, 1);
-	//((u16*)BG_MAP_0)[0]=1;
-	//((u16*)BG_MAP_0)[1]=1;
-	//((u16*)BG_MAP_0)[2]=2;
+	//Set the first tile to 0 so it won't render any of them
+	((u16*)BG_MAP_0)[0]=0;
 
-	PrintText("abcd"); 
+	PrintText("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+	PrintText("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
 
 
 	MapProperties mp0;
@@ -71,7 +71,7 @@ int main()
 	mp0.paletteType = 0;
 	mp0.startAdressTileMap = 12;
 	mp0.areaOverflow = 0;
-	mp0.sizeMap = 0;
+	mp0.sizeMap = 0; 
 	
 
 	shortCopy((u16*)BG_MAP_PROP_0, (u16*)&mp0, 1);

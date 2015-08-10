@@ -172,7 +172,6 @@ int main()
 	while(1)
 	{
 		//Update keys
-		//PollKeys();
 		//Gmae Object Factory Code================================
 		other5->sprite->x += 1;
 		//other->sprite->y = x;
@@ -199,8 +198,8 @@ int main()
 		other1->z_Depth = y;
 
 		//Toggle Debug Text===================================
-		//if(IsKeyDown(KEY_L))
-		//{
+		if(isKeyDown(KEY_L))
+		{
 			if(debug == 1)
 			{
 				REG_DISPCNT = REG_DISPCNT - 0x0100;
@@ -211,12 +210,12 @@ int main()
 				REG_DISPCNT = REG_DISPCNT + 0x0100;
 				debug = 1;	
 			}
-		//}
+		}
 
-		//if(isKeyDown(KEY_R))
-		//{
+		if(isKeyDown(KEY_R))
+		{
 			PrintText("123");
-		//}
+		}
 
 		waitVBlank();
 		GOFactory_CopytoOAM();

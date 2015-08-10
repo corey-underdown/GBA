@@ -168,10 +168,13 @@ int main()
 
 	int y = 0;
 	int z = 1;
+	int frame = 0;
 	
 	while(1)
 	{
 		//Update keys
+		if((frame & 7) == 0)
+			PollKeys();
 		//Gmae Object Factory Code================================
 		other5->sprite->x += 1;
 		//other->sprite->y = x;
@@ -198,7 +201,7 @@ int main()
 		other1->z_Depth = y;
 
 		//Toggle Debug Text===================================
-		if(isKeyDown(KEY_L))
+		if(WasKeyDown(KEY_L))
 		{
 			if(debug == 1)
 			{
@@ -212,10 +215,12 @@ int main()
 			}
 		}
 
-		if(isKeyDown(KEY_R))
+		if(WasKeyDown(KEY_R))
 		{
 			PrintText("123");
 		}
+
+		frame++;
 
 		waitVBlank();
 		GOFactory_CopytoOAM();

@@ -101,6 +101,11 @@ int main()
 	other4->z_Depth = 30;
 
 
+	GameObject* other5 = GOFactory_New(4, 100,100,ENUM_DIR_LEFT, 20);
+	other5->z_Depth = 0;
+
+
+
 
 	GOFactory_CopytoOAM();
 	
@@ -128,7 +133,7 @@ int main()
 
 	*/
 
-	int x=0;    
+  
 
 	int y = 0;
 	int z = 1;
@@ -136,23 +141,25 @@ int main()
 	while(1)
 	{
 		//Gmae Object Factory Code================================
-		x++;
-		if(x>240)
-			x=0;
-
-		player->sprite->x = x;
+		other5->sprite->x += 1;
 		//other->sprite->y = x;
+		if(other5->sprite->x > 240)
+			other5->sprite->x=0;
 
 
 		//Test for z depth
 		y += z;
 		if (y > 40)
 		{
+			GOFactory_Delete(other5);
+			other5 = GOFactory_New(4, 150,30,ENUM_DIR_LEFT, 20);
 			y = 40;
 			z = -1;
 		}
 		else if (y < 0)
 		{
+			GOFactory_Delete(other5);
+			other5 = GOFactory_New(3, 150,38,ENUM_DIR_LEFT, 20);
 			y = 0;
 			z = 1;
 		}

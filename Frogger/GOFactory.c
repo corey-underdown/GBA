@@ -14,7 +14,7 @@ void GOFactory_Init()
 	//set all index numbers to 200
 		g_GOFactory.indexList[i] = 200;
 	//Set all Sprite data to not display
-		g_GOFactory.ghostOAM[i].y = 200;
+		g_GOFactory.ghostOAM[i].y = 500;
 	//Set all game objects z to 1000;
 		g_GOFactory.GOList[i].alive = FALSE;
 	//
@@ -32,6 +32,7 @@ GameObject* GOFactory_New(int enum_type, int posX, int posY, int enum_dir, float
 	{
 		if (g_GOFactory.GOList[i].alive == FALSE)
 		{
+			GOFactory_Sort();
 			//Spot is Available.
 			g_GOFactory.indexList[g_GOFactory.goCount] = i;
 			//Set as Active or Alive
@@ -106,6 +107,7 @@ GameObject* GOFactory_New(int enum_type, int posX, int posY, int enum_dir, float
 
 
 			g_GOFactory.goCount ++;
+			GOFactory_Sort();
 			return &g_GOFactory.GOList[i];
 		}
 
@@ -121,11 +123,20 @@ GameObject* GOFactory_New(int enum_type, int posX, int posY, int enum_dir, float
 
 void GOFactory_Delete(GameObject* gameobject)
 {
-	//GOFactor.goCount --;
-	//set game object to not alive, set z value to be 1000,
-	//Set sprite data to be not displayed move to back of array.
-	//set index to be 200 move to back of array
+	if (gameobject->alive == TRUE)
+	{
+		g_GOFactory.goCount -= 1;
+		//set game object to not alive, set z value to be 1000,
+		gameobject->alive = FALSE;
+		gameobject->sprite = 0;
+		//set index to be 200 
+		*(gameobject->index) = 200;
+		//Set sprite data to be not displayed 
+		gameobject->sprite->y = 500;
+		gameobject->sprite->tileIndex = 0;
 
+		GOFactory_Sort();
+	}
 }
 
 void GOFactory_CopytoOAM()
@@ -141,6 +152,9 @@ void GOFactory_Swap(int i, int j)
 	//Point to new Index and Spritedata
 	g_GOFactory.GOList[g_GOFactory.indexList[i]].sprite = &g_GOFactory.ghostOAM[j];
 	g_GOFactory.GOList[g_GOFactory.indexList[i]].index = &g_GOFactory.indexList[j];
+
+	g_GOFactory.GOList[g_GOFactory.indexList[j]].sprite = &g_GOFactory.ghostOAM[i];
+	g_GOFactory.GOList[g_GOFactory.indexList[j]].index = &g_GOFactory.indexList[i];
 	//Swap Memory
 	//Ghost OAM
 	SpriteData temp = g_GOFactory.ghostOAM[i];
@@ -156,11 +170,11 @@ void GOFactory_Sort()
 {
 	int i = 0;
 
-	int finished = 0;
+	int finished = FALSE;
 
 	while (!finished)
 	{
-		finished = 1;
+		finished = TRUE;
 
 		for (i = 0; i < 127; i++)
 		{
@@ -168,7 +182,7 @@ void GOFactory_Sort()
 			{
 				if (g_GOFactory.indexList[i + 1] != 200)
 				{
-					finished = 0;
+					finished = FALSE;
 					GOFactory_Swap(i, i+1);
 				}
 			}
@@ -178,7 +192,7 @@ void GOFactory_Sort()
 			}
 			else if (g_GOFactory.GOList[g_GOFactory.indexList[i]].z_Depth > g_GOFactory.GOList[g_GOFactory.indexList[i + 1]].z_Depth)
 			{
-				finished = 0;
+				finished = FALSE;
 
 				GOFactory_Swap(i, i+1);
 			}

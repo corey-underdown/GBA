@@ -13,12 +13,19 @@ namespace WindowsFormsApplication1
 {
 	public partial class Form1 : Form
 	{
+		public class ColorStruct
+		{
+			public Color[] colors = new Color[16];
+		}
+
 		string fileName, fileTitle, fileDir;
-		bool opened = false;
+		List<ColorStruct> palettes = new List<ColorStruct>();
 
 		public Form1()
 		{
 			InitializeComponent();
+			for (int i = 0; i < 16; i++)
+				palettes.Add(new ColorStruct());
 		}
 
 		private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -36,25 +43,25 @@ namespace WindowsFormsApplication1
 				fileName = openFileDialog1.FileName;
 				fileTitle = Path.GetFileNameWithoutExtension(fileName);
 				fileDir = Path.GetDirectoryName(fileName);
-				opened = true;
 				button1.Enabled = true;
 				Console.WriteLine(fileName);
 			}
 			else
 			{
-				opened = false;
 				button1.Enabled = false;
 			}
 		}
 
 		private void button1_Click(object sender, EventArgs e)
 		{
-			Image img = Image.FromFile(fileName);
-
-			byte[] b = imageToByteArray(img);
-			for(int i = 0; i < b.Length; i++)
+			Bitmap img = new Bitmap(fileName);
+			for(int j = 0; j < img.Height; j++)
 			{
-				Console.WriteLine(b[i]);
+				for(int i = 0; i < img.Width; i++)
+				{
+					Color pixel = img.GetPixel(i, j);
+					
+				}
 			}
 		}
 
@@ -66,5 +73,35 @@ namespace WindowsFormsApplication1
 				return ms.ToArray();
 			}
 		}
+
+		private void button2_Click(object sender, EventArgs e)
+		{
+			OpenFileDialog openFileDialog2 = new OpenFileDialog();
+
+			openFileDialog2.InitialDirectory = "c:\\";
+			openFileDialog2.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+			openFileDialog2.FilterIndex = 2;
+			openFileDialog2.RestoreDirectory = true;
+
+			if (openFileDialog2.ShowDialog() == DialogResult.OK)
+			{
+				Bitmap img = new Bitmap(openFileDialog2.FileName);
+				for (int j = 0; j < img.Height; j++)
+				{
+					for (int i = 0; i < img.Width; i++)
+					{
+						palettes[j].colors[i] = img.GetPixel(i, j);
+					}
+				}
+
+				for (int i = 0; i < 16; i++)
+					Console.Write(palettes[0].colors[i]);
+			}
+			else
+			{
+				Console.WriteLine("Error opening palette");
+			}
+		}
+
 	}
 }

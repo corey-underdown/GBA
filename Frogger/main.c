@@ -34,13 +34,15 @@ int main()
 
 	waitVBlank();
 
+
+
 	//HACK to create temporary tile
 	memcpy(((void*)BG_TILE_TEXT) + 32 , (void*)BitmapA,32);  
 	memcpy(((void*)BG_TILE_TEXT) + 64, (void*)BitmapB,32); 
 
 	//HACK create palette
 	shortCopy((u16*)SPRITE_PAL_DATA, (u16*)Palette, 256);
-	shortCopy((u16*)SPRITE_BITMAPS, (u16*)Bitmap, 32);
+	shortCopy((u16*)SPRITE_BITMAPS, (u16*)Bitmap, 80);
 
 	//set background palette  
 	shortCopy((void*)BG_PAL_DATA, (void*)Palette, 256);
@@ -55,8 +57,8 @@ int main()
 	//Set the first tile to 0 so it won't render any of them
 	((u16*)BG_MAP_0)[0]=0;
 
-	PrintText("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-	PrintText("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
+	//PrintText("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+	//PrintText("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
 
 
 	MapProperties mp0;
@@ -83,7 +85,22 @@ int main()
 
 	GameObject* player = GOFactory_New(ENUM_GOTYPE_FROGGER, 20,30,ENUM_DIR_LEFT, 20);
 
-	GameObject* other = GOFactory_New(ENUM_GOTYPE_FROGGER, 80,80,ENUM_DIR_LEFT, 20);
+	//GameObject* other = GOFactory_New(ENUM_GOTYPE_FROGGER, 80,80,ENUM_DIR_LEFT, 20);
+
+
+
+	//Testy for z Depth
+	GameObject* other1 = GOFactory_New(1, 80,80,ENUM_DIR_LEFT, 20);
+	GameObject* other2 = GOFactory_New(2, 76,84,ENUM_DIR_LEFT, 20);
+	GameObject* other3 = GOFactory_New(3, 84,84,ENUM_DIR_LEFT, 20);
+	GameObject* other4 = GOFactory_New(4, 80,76,ENUM_DIR_LEFT, 20);
+
+	other1->z_Depth = 0;
+	other2->z_Depth = 10;
+	other3->z_Depth = 20;
+	other4->z_Depth = 30;
+
+
 
 	GOFactory_CopytoOAM();
 	
@@ -112,6 +129,9 @@ int main()
 	*/
 
 	int x=0;    
+
+	int y = 0;
+	int z = 1;
 	
 	while(1)
 	{
@@ -121,7 +141,24 @@ int main()
 			x=0;
 
 		player->sprite->x = x;
-		other->sprite->y = x;
+		//other->sprite->y = x;
+
+
+		//Test for z depth
+		y += z;
+		if (y > 40)
+		{
+			y = 40;
+			z = -1;
+		}
+		else if (y < 0)
+		{
+			y = 0;
+			z = 1;
+		}
+
+		other1->z_Depth = y;
+
 
 
 		waitVBlank();

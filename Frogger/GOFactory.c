@@ -67,8 +67,42 @@ GameObject* GOFactory_New(int enum_type, int posX, int posY, int enum_dir, float
 			g_GOFactory.GOList[i].sprite->size = 0;//0, 1, 2 ,3 ,4  0 = 8 pixels, 1 = 16 pixels, 2 = 32 pixels, 3 = 64 pixels depending on the sprite size
 			g_GOFactory.GOList[i].sprite->tileIndex = 0;//first tile in tile array.
 			g_GOFactory.GOList[i].sprite->pallet = 0;
-
 			}
+
+			else if (enum_type == 1)
+			{
+			g_GOFactory.GOList[i].sprite->shape = 0;//Square or Rect
+			g_GOFactory.GOList[i].sprite->spcRotation = 0;//DEpending on prvious values this will change.
+			g_GOFactory.GOList[i].sprite->size = 0;//0, 1, 2 ,3 ,4  0 = 8 pixels, 1 = 16 pixels, 2 = 32 pixels, 3 = 64 pixels depending on the sprite size
+			g_GOFactory.GOList[i].sprite->tileIndex = 1;//first tile in tile array.
+			g_GOFactory.GOList[i].sprite->pallet = 0;
+			}
+			else if (enum_type == 2)
+			{
+			g_GOFactory.GOList[i].sprite->shape = 0;//Square or Rect
+			g_GOFactory.GOList[i].sprite->spcRotation = 0;//DEpending on prvious values this will change.
+			g_GOFactory.GOList[i].sprite->size = 0;//0, 1, 2 ,3 ,4  0 = 8 pixels, 1 = 16 pixels, 2 = 32 pixels, 3 = 64 pixels depending on the sprite size
+			g_GOFactory.GOList[i].sprite->tileIndex = 2;//first tile in tile array.
+			g_GOFactory.GOList[i].sprite->pallet = 0;
+			}
+			else if (enum_type == 3)
+			{
+			g_GOFactory.GOList[i].sprite->shape = 0;//Square or Rect
+			g_GOFactory.GOList[i].sprite->spcRotation = 0;//DEpending on prvious values this will change.
+			g_GOFactory.GOList[i].sprite->size = 0;//0, 1, 2 ,3 ,4  0 = 8 pixels, 1 = 16 pixels, 2 = 32 pixels, 3 = 64 pixels depending on the sprite size
+			g_GOFactory.GOList[i].sprite->tileIndex = 3;//first tile in tile array.
+			g_GOFactory.GOList[i].sprite->pallet = 0;
+			}
+			else if (enum_type == 4)
+			{
+			g_GOFactory.GOList[i].sprite->shape = 0;//Square or Rect
+			g_GOFactory.GOList[i].sprite->spcRotation = 0;//DEpending on prvious values this will change.
+			g_GOFactory.GOList[i].sprite->size = 0;//0, 1, 2 ,3 ,4  0 = 8 pixels, 1 = 16 pixels, 2 = 32 pixels, 3 = 64 pixels depending on the sprite size
+			g_GOFactory.GOList[i].sprite->tileIndex = 4;//first tile in tile array.
+			g_GOFactory.GOList[i].sprite->pallet = 0;
+			}
+
+
 
 
 			g_GOFactory.goCount ++;
@@ -96,6 +130,59 @@ void GOFactory_Delete(GameObject* gameobject)
 
 void GOFactory_CopytoOAM()
 {
+	GOFactory_Sort();
 	memcpy ((char*)SPRITE_OAM, ((char*)&(g_GOFactory.ghostOAM[0])), (sizeof(SpriteData) * 128));
+}
+
+void GOFactory_Swap(int i, int j)
+{
+	//Swap items
+	//Swap Pointers
+	//Point to new Index and Spritedata
+	g_GOFactory.GOList[g_GOFactory.indexList[i]].sprite = &g_GOFactory.ghostOAM[j];
+	g_GOFactory.GOList[g_GOFactory.indexList[i]].index = &g_GOFactory.indexList[j];
+	//Swap Memory
+	//Ghost OAM
+	SpriteData temp = g_GOFactory.ghostOAM[i];
+	g_GOFactory.ghostOAM[i] = g_GOFactory.ghostOAM[j];
+	g_GOFactory.ghostOAM[j] = temp;
+	//Index Data
+	int tempInt = g_GOFactory.indexList[i];
+	g_GOFactory.indexList[i] = g_GOFactory.indexList[j];
+	g_GOFactory.indexList[j] = tempInt;
+}
+
+void GOFactory_Sort()
+{
+	int i = 0;
+
+	int finished = 0;
+
+	while (!finished)
+	{
+		finished = 1;
+
+		for (i = 0; i < 127; i++)
+		{
+			if (g_GOFactory.indexList[i] == 200)
+			{
+				if (g_GOFactory.indexList[i + 1] != 200)
+				{
+					finished = 0;
+					GOFactory_Swap(i, i+1);
+				}
+			}
+			else if (g_GOFactory.indexList[i + 1] == 200)
+			{
+				//Do Nothing
+			}
+			else if (g_GOFactory.GOList[g_GOFactory.indexList[i]].z_Depth > g_GOFactory.GOList[g_GOFactory.indexList[i + 1]].z_Depth)
+			{
+				finished = 0;
+
+				GOFactory_Swap(i, i+1);
+			}
+		}
+	}
 }
 

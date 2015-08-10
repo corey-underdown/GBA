@@ -56,6 +56,8 @@ void GOFactory_Delete(GameObject* gameobject);
 
 void GOFactory_CopytoOAM();
 
+void GOFactory_Sort();
 
+void GOFactory_Swap(int i, int j);
 
 #endif

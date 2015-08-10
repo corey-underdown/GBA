@@ -3,6 +3,7 @@
 #include "images/TestImage.h"
 #include "GOFactory.h"
 #include "TextManager.h"
+#include "input.h"
 
 
 
@@ -26,19 +27,32 @@ typedef struct
 	unsigned char sizeMap:2;
 }MapProperties;
 
+int debug = 1;
+
 int main()
 {
 	
 	//Enable Sprites
 	REG_DISPCNT = 0x1100;
+	//REG_DISPCNT = REG_DISPCNT - 0x0100;
 
 	waitVBlank();
 
 
 
 	//HACK to create temporary tile
-	memcpy(((void*)BG_TILE_TEXT) + 32 , (void*)BitmapA,32);  
-	memcpy(((void*)BG_TILE_TEXT) + 64, (void*)BitmapB,32); 
+	memcpy(((void*)BG_TILE_TEXT) + (1 * 32) , (void*)BitmapA,32);  
+	memcpy(((void*)BG_TILE_TEXT) + (2 * 32), (void*)BitmapB,32); 
+	memcpy(((void*)BG_TILE_TEXT) + (3 * 32), (void*)Bitmap0,32);
+	memcpy(((void*)BG_TILE_TEXT) + (4 * 32), (void*)Bitmap1,32);
+	memcpy(((void*)BG_TILE_TEXT) + (5 * 32), (void*)Bitmap2,32); 
+	memcpy(((void*)BG_TILE_TEXT) + (6 * 32), (void*)Bitmap3,32); 
+	memcpy(((void*)BG_TILE_TEXT) + (7 * 32), (void*)Bitmap4,32); 
+	memcpy(((void*)BG_TILE_TEXT) + (8 * 32), (void*)Bitmap5,32); 
+	memcpy(((void*)BG_TILE_TEXT) + (9 * 32), (void*)Bitmap6,32); 
+	memcpy(((void*)BG_TILE_TEXT) + (10 * 32), (void*)Bitmap7,32); 
+	memcpy(((void*)BG_TILE_TEXT) + (11 * 32), (void*)Bitmap8,32); 
+	memcpy(((void*)BG_TILE_TEXT) + (12 * 32), (void*)Bitmap9,32); 
 
 	//HACK create palette
 	shortCopy((u16*)SPRITE_PAL_DATA, (u16*)Palette, 256);
@@ -47,7 +61,7 @@ int main()
 	//set background palette  
 	shortCopy((void*)BG_PAL_DATA, (void*)Palette, 256);
 
-	TileData tData;
+	TileData tData; 
 	tData.tile = 1;
 	tData.horizontalFlip = 0;
 	tData.verticalFlip = 0;
@@ -57,9 +71,26 @@ int main()
 	//Set the first tile to 0 so it won't render any of them
 	((u16*)BG_MAP_0)[0]=0;
 
-	//PrintText("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-	//PrintText("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
-
+	PrintText("aaaaaaaaaaaaaaaaaaaaaaaaaaaaab");
+	PrintText("bbaa");
+	PrintText("abbbbbbaab");
+	PrintText("aaaaaaaaaaaaaaaaaaaaaaaaaaaaab");
+	PrintText("bbaa");
+	PrintText("abbbbbbaab");
+	PrintText("aaaaaaaaaaaaaaaaaaaaaaaaaaaaab");
+	PrintText("bbaa");
+	PrintText("abbbbbbaab");
+	PrintText("aaaaaaaaaaaaaaaaaaaaaaaaaaaaab");
+	PrintText("bbaa");
+	PrintText("abbbbbbaab");
+	PrintText("aaaaaaaaaaaaaaaaaaaaaaaaaaaaab");
+	PrintText("bbaa");
+	PrintText("abbbbbbaab");
+	PrintText("aaaaaaaaaaaaaaaaaaaaaaaaaaaaab");
+	PrintText("bbaa");
+	PrintText("abbbbbbaab");
+	PrintText("abbbbbbaab");
+	PrintText("abbbbbbaab");
 
 	MapProperties mp0;
 	MapProperties mp1;
@@ -140,12 +171,13 @@ int main()
 	
 	while(1)
 	{
+		//Update keys
+		//PollKeys();
 		//Gmae Object Factory Code================================
 		other5->sprite->x += 1;
 		//other->sprite->y = x;
 		if(other5->sprite->x > 240)
 			other5->sprite->x=0;
-
 
 		//Test for z depth
 		y += z;
@@ -166,7 +198,25 @@ int main()
 
 		other1->z_Depth = y;
 
+		//Toggle Debug Text===================================
+		//if(IsKeyDown(KEY_L))
+		//{
+			if(debug == 1)
+			{
+				REG_DISPCNT = REG_DISPCNT - 0x0100;
+				debug = 0;
+			}
+			else
+			{
+				REG_DISPCNT = REG_DISPCNT + 0x0100;
+				debug = 1;	
+			}
+		//}
 
+		//if(isKeyDown(KEY_R))
+		//{
+			PrintText("123");
+		//}
 
 		waitVBlank();
 		GOFactory_CopytoOAM();

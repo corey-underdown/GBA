@@ -55,14 +55,33 @@ namespace WindowsFormsApplication1
 		private void button1_Click(object sender, EventArgs e)
 		{
 			Bitmap img = new Bitmap(fileName);
+
+			int[] hexArray = new int[64];
+
 			for(int j = 0; j < img.Height; j++)
 			{
 				for(int i = 0; i < img.Width; i++)
 				{
 					Color pixel = img.GetPixel(i, j);
-					
+					for(int k = 0; k < palettes[0].colors.Length; k++)
+					{
+						if(pixel == palettes[0].colors[k])
+						{
+							hexArray[i + j * 8] = k;
+						}
+					}
 				}
 			}
+
+			for(int i = 0; i < 8; i++)
+			{
+				for(int j = 0; j < 4; j++)
+				{
+					int value = (hexArray[i * 8 + (j * 2) + 1] << 1) & (hexArray[i * 8 + (j * 2)]);
+					Console.WriteLine(value.ToString("X"));
+				}
+			}
+
 		}
 
 		public byte[] imageToByteArray(Image imageIn)

@@ -186,6 +186,7 @@ int main()
 			other5 = GOFactory_New(4, 150,30,ENUM_DIR_LEFT, 20);
 			y = 40;
 			z = -1;
+			PrintText("a");
 		}
 		else if (y < 0)
 		{
@@ -193,6 +194,7 @@ int main()
 			other5 = GOFactory_New(3, 150,38,ENUM_DIR_LEFT, 20);
 			y = 0;
 			z = 1;
+			PrintText("b");
 		}
 
 		other1->z_Depth = y;

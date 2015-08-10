@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "toolbox.h"
 #include "images/TestImage.h"
+#include "images/TextBitmap.h"
 #include "GOFactory.h"
 #include "TextManager.h"
 #include "input.h"
@@ -41,18 +42,8 @@ int main()
 
 
 	//HACK to create temporary tile
-	memcpy(((void*)BG_TILE_TEXT) + (1 * 32) , (void*)BitmapA,32);  
-	memcpy(((void*)BG_TILE_TEXT) + (2 * 32), (void*)BitmapB,32); 
-	memcpy(((void*)BG_TILE_TEXT) + (3 * 32), (void*)Bitmap0,32);
-	memcpy(((void*)BG_TILE_TEXT) + (4 * 32), (void*)Bitmap1,32);
-	memcpy(((void*)BG_TILE_TEXT) + (5 * 32), (void*)Bitmap2,32); 
-	memcpy(((void*)BG_TILE_TEXT) + (6 * 32), (void*)Bitmap3,32); 
-	memcpy(((void*)BG_TILE_TEXT) + (7 * 32), (void*)Bitmap4,32); 
-	memcpy(((void*)BG_TILE_TEXT) + (8 * 32), (void*)Bitmap5,32); 
-	memcpy(((void*)BG_TILE_TEXT) + (9 * 32), (void*)Bitmap6,32); 
-	memcpy(((void*)BG_TILE_TEXT) + (10 * 32), (void*)Bitmap7,32); 
-	memcpy(((void*)BG_TILE_TEXT) + (11 * 32), (void*)Bitmap8,32); 
-	memcpy(((void*)BG_TILE_TEXT) + (12 * 32), (void*)Bitmap9,32); 
+	memcpy(((void*)BG_TILE_TEXT), (void*)TextBitmap,32);  
+
 
 	//HACK create palette
 	shortCopy((u16*)SPRITE_PAL_DATA, (u16*)Palette, 256);

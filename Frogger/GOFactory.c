@@ -49,7 +49,7 @@ GameObject* GOFactory_New(int enum_type, int posX, int posY, int enum_dir, float
 			g_GOFactory.GOList[i].sprite->mosaic = 0;//Off
 			g_GOFactory.GOList[i].sprite->colourMode = 0;//16 colour
 			g_GOFactory.GOList[i].sprite->x = posX;//Set Init Position
-			g_GOFactory.GOList[i].sprite->priority = 2;//Allows 1 BG layer behind
+			g_GOFactory.GOList[i].sprite->priority = 1;//Allows 1 BG layer behind
 			g_GOFactory.GOList[i].sprite->rotation = 0;//actual rotation
 			g_GOFactory.GOList[i].sprite->vertFlip = 0;//IF enabelRotation = 1, Do not set this value
 

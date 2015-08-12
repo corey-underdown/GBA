@@ -32,18 +32,14 @@ int debug = 1;
 
 int main()
 {
-	
 	//Enable Sprites
 	REG_DISPCNT = 0x1100;
 	//REG_DISPCNT = REG_DISPCNT - 0x0100;
 
 	waitVBlank();
 
-
-
 	//HACK to create temporary tile
-	memcpy(((void*)BG_TILE_TEXT), (void*)TextBitmap,32);  
-
+	memcpy(((void*)BG_TILE_TEXT), (void*)Text_126_8_bitTilesLen,2000);  
 
 	//HACK create palette
 	shortCopy((u16*)SPRITE_PAL_DATA, (u16*)Palette, 256);

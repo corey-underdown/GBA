@@ -1,4 +1,4 @@
-﻿namespace ImageToGBAHeader
+namespace ImageToGBAHeader
 {
 	public class PBOverride : System.Windows.Forms.PictureBox
 	{
@@ -47,6 +47,7 @@
 			this.textSpriteFolder = new System.Windows.Forms.TextBox();
 			this.label2 = new System.Windows.Forms.Label();
 			this.buttonContinue = new System.Windows.Forms.Button();
+			this.button_save = new System.Windows.Forms.Button();
 			this.picboxSprite = new ImageToGBAHeader.PBOverride();
 			this.picboxPalette = new ImageToGBAHeader.PBOverride();
 			((System.ComponentModel.ISupportInitialize)(this.picboxSprite)).BeginInit();
@@ -124,6 +125,17 @@
 			this.buttonContinue.Visible = false;
 			this.buttonContinue.Click += new System.EventHandler(this.buttonContinue_Click);
 			// 
+			// button_save
+			// 
+			this.button_save.Enabled = false;
+			this.button_save.Location = new System.Drawing.Point(867, 134);
+			this.button_save.Name = "button_save";
+			this.button_save.Size = new System.Drawing.Size(130, 45);
+			this.button_save.TabIndex = 11;
+			this.button_save.Text = "Save To File";
+			this.button_save.UseVisualStyleBackColor = true;
+			this.button_save.Click += new System.EventHandler(this.button1_Click);
+			// 
 			// picboxSprite
 			// 
 			this.picboxSprite.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
@@ -155,6 +167,7 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1009, 559);
+			this.Controls.Add(this.button_save);
 			this.Controls.Add(this.buttonContinue);
 			this.Controls.Add(this.picboxSprite);
 			this.Controls.Add(this.buttonOpenFolder);
@@ -186,6 +199,7 @@
 		private System.Windows.Forms.Label label2;
 		private PBOverride picboxSprite;
 		private System.Windows.Forms.Button buttonContinue;
+		private System.Windows.Forms.Button button_save;
 	}
 }
 

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,15 +17,15 @@ namespace ImageToGBAHeader
 
 		///General TODO
 		/// Maybe put in a button to load palette and sprite instead of it being automatic.
-		/// Additional to this. If folder selector or file selector are closed without making a selection of a valid file, The thing breaks.
+		/// 
 		/// Add in text boxes to allow user input for Palette Name and TileBitmap Name and possibly an output directory.
 		/// Add support for images other than PNG
 		/// 
 		/// 
 		/// 
 		/// 
-		/// 
-		///
+		/// FIXED
+		/// Additional to this. If folder selector or file selector are closed without making a selection of a valid file, The thing breaks.
 
 
 
@@ -36,8 +36,8 @@ namespace ImageToGBAHeader
 		List<Bitmap> sprites = new List<Bitmap>();
 		FileInfo[] spriteFiles;
 
-		string paletteOutput;
-		string spriteOutput;
+		string paletteOutput = "";
+		string spriteOutput = "";
 
 		public Form1()
 		{
@@ -58,26 +58,30 @@ namespace ImageToGBAHeader
 
 		private void buttonOpenFolder_Click(object sender, EventArgs e)
 		{
-			//TODO Do Not Allow all of this code to run unless bgPaletteArray is loaded Properly.
+			//FIXED Do Not Allow all of this code to run unless bgPaletteArray is loaded Properly.
+			//Code only runs if file result is OK
 			FolderBrowserDialog openFolderDialog1 = new FolderBrowserDialog();
 
 			DialogResult result = openFolderDialog1.ShowDialog(); // Show the dialog.
 			if (result == DialogResult.OK) // Test result.
 			{
 				textSpriteFolder.Text = openFolderDialog1.SelectedPath;
-			}
+				DirectoryInfo dinfo = new DirectoryInfo(textSpriteFolder.Text);
+				spriteFiles = dinfo.GetFiles("*.png");
+				foreach (FileInfo file in spriteFiles)
+				{
+					sprites.Add(new Bitmap(textSpriteFolder.Text + "\\" + file.Name));
+				}
 
-			DirectoryInfo dinfo = new DirectoryInfo(textSpriteFolder.Text);
-			spriteFiles = dinfo.GetFiles("*.png");
-			foreach (FileInfo file in spriteFiles)
-			{
-				sprites.Add(new Bitmap(textSpriteFolder.Text + "\\" + file.Name));
+				if (sprites.Count > 0)
+				{
+					picboxSprite.Image = sprites[0];
+					buttonContinue.Visible = true;
+				}
 			}
-
-			if (sprites.Count > 0)
+			else
 			{
-				picboxSprite.Image = sprites[0];
-				buttonContinue.Visible = true;
+				Console.WriteLine("Closed Folder Select");
 			}
 		}
 
@@ -87,22 +91,28 @@ namespace ImageToGBAHeader
 
 			for (int i = 0; i < sprites.Count; i++)
 			{
-				int curSpritePalette = FindPalette(sprites[i]);//TODO Bug Find Palette Not Working - Was working then just stoped.
+				//FIXED Bug Find Palette Not Working - Was working then just stoped.
+				//seems to be fine again. 
+				int curSpritePalette = FindPalette(sprites[i]);
 
 				if (curSpritePalette >= 0)
 				{
 					//There Is a valid Palette
 					spriteOutput += "/////////////////////////////////////////////////////////////////////// \n";
 					spriteOutput += "// " + spriteFiles[i] + " : " + i.ToString() + " ///////////////////////////////////////////////// \n";
-					spriteOutput += BitmapToHexString(sprites[i], 0);//TODO 0 changed to curSpritePalette When Find Palette works
-
+					spriteOutput += BitmapToHexString(sprites[i], curSpritePalette);
+					//FIXED 0 changed to curSpritePalette When Find Palette works
+					//CHanged back to curSpritePalette
 				}
 			}
 			spriteOutput += "};";
 
 			textPaletteOut.Text = spriteOutput;
 
-			//TODO Output -> paletteOutput & spriteOutput to a .c with a new line inbetween them both.
+			//FIXED Output -> paletteOutput & spriteOutput to a .c with a new line inbetween them both.
+			//enables the save button to save out files
+			if (spriteOutput != "" && paletteOutput != "")
+				button_save.Enabled = true;
 		}
 
 		void LoadPalette()
@@ -119,7 +129,10 @@ namespace ImageToGBAHeader
 				for (int x = 0; x < bitPalette.Width; x++)
 				{
 					strPalette += ColourToHex(bitPalette.GetPixel(x, y));
-					strPalette += ", ";
+					if ((y + 1) >= bitPalette.Height && (x + 1) >= bitPalette.Width)
+						strPalette += "";
+					else
+						strPalette += ", ";
 					bgPaletteArray[x, y] = ColourToHex(bitPalette.GetPixel(x, y));
 				}
 				strPalette += "\n";
@@ -166,7 +179,9 @@ namespace ImageToGBAHeader
 
 							temp +=  String.Format("0x{0:X2}", hex);
 
-							temp += ", ";
+							if((i + 8) >= bt.Height && (j + 8) >= bt.Width && (y + 1) >= 8 && (x+2) >= 8) temp += "";
+							else temp += ", ";
+							//temp += ", ";
 
 						}
 						temp += "\n";
@@ -185,7 +200,8 @@ namespace ImageToGBAHeader
 		/// </summary>
 		int FindPalette(Bitmap bt)
 		{
-			//TODO Fix - Was not working - Returning -1 on control test.
+			//FIXED Fix - Was not working - Returning -1 on control test.
+			//Seems to be returning correctly now?
 			int pal = 0;
 
 			for (int y = 0; y < bt.Height; y++)
@@ -210,7 +226,7 @@ namespace ImageToGBAHeader
 
 			Console.WriteLine("Palette Found: " + pal.ToString());
 			textPaletteOut.Text = "Palette Found: " + pal.ToString();
-			return pal;
+			return pal - 1;
 		}
 
 
@@ -228,6 +244,22 @@ namespace ImageToGBAHeader
 				}
 			}
 			return -1;
+		}
+
+		private void button1_Click(object sender, EventArgs e)
+		{
+			FolderBrowserDialog openFolderDialog2 = new FolderBrowserDialog();
+
+			DialogResult result = openFolderDialog2.ShowDialog(); // Show the dialog.
+			if (result == DialogResult.OK) // Test result.
+			{
+				Console.WriteLine(openFolderDialog2.SelectedPath);
+			}
+
+			using (StreamWriter outfile = new StreamWriter(openFolderDialog2.SelectedPath + @"\imageheader.h"))
+			{
+				outfile.Write(paletteOutput.ToString() + "\n\n" + spriteOutput.ToString());
+			}
 		}
 	}
 

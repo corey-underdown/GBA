@@ -2,7 +2,6 @@
 #include "TextManager.h"
 #include "toolbox.h"
 
-unsigned int counter = 0;
 unsigned int row = 0;
 char characterArray[256] = {
 /*0*/	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,

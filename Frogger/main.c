@@ -141,13 +141,11 @@ int main()
 
 	int y = 0;
 	int z = 1;
-	int frame = 0;
 	
 	while(1)
 	{
 		//Update keys
-		if((frame & 7) == 0)
-			PollKeys();
+		PollKeys();
 		//Gmae Object Factory Code================================
 		other5->sprite->x += 1;
 		//other->sprite->y = x;
@@ -188,14 +186,12 @@ int main()
 				REG_DISPCNT = REG_DISPCNT + 0x0100;
 				debug = 1;	
 			}
-		}
-
-		if(WasKeyDown(KEY_R))
-		{
-			PrintText("123");
 		}*/
 
-		frame++;
+		if(isKeyDown() & KEY_R)
+		{
+			PrintText("123");
+		}
 
 		waitVBlank();
 		GOFactory_CopytoOAM();

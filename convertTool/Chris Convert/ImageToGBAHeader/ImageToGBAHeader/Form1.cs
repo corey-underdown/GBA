@@ -208,25 +208,24 @@ namespace ImageToGBAHeader
 			{
 				for (int x = 0; x < bt.Width; x++)
 				{
-					if (CheckPalForMatch(pal, ColourToHex(bt.GetPixel(x,y))) >= 0)
+					if (pal > 15)
+					{
+						Console.WriteLine("Error, Palette Not Found");
+						textPaletteOut.Text = "Error, Palette Not Found";
+						return -1;
+					}
+					if (CheckPalForMatch(pal, ColourToHex(bt.GetPixel(x,y))) == -1)
 					{
 						pal++;
 						y = 0;
 						x = 0;
-
-						if (pal > 15)
-						{
-							Console.WriteLine("Error, Palette Not Found");
-							textPaletteOut.Text = "Error, Palette Not Found";
-							return -1;
-						}
 					}
 				}
 			}
 
 			Console.WriteLine("Palette Found: " + pal.ToString());
 			textPaletteOut.Text = "Palette Found: " + pal.ToString();
-			return pal - 1;
+			return pal;
 		}
 
 

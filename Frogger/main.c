@@ -190,7 +190,7 @@ int main()
 		other1->z_Depth = y;
 
 		//Toggle Debug Text===================================
-		if(WasKeyDown(KEY_L))
+		/*if(WasKeyDown(KEY_L))
 		{
 			if(debug == 1)
 			{
@@ -207,7 +207,7 @@ int main()
 		if(WasKeyDown(KEY_R))
 		{
 			PrintText("123");
-		}
+		}*/
 
 		frame++;
 

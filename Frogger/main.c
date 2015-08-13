@@ -5,6 +5,7 @@
 #include "GOFactory.h"
 #include "TextManager.h"
 #include "input.h"
+#include "images/Text_Tiles.h"
 
 
 
@@ -39,7 +40,7 @@ int main()
 	waitVBlank();
 
 	//HACK to create temporary tile
-	memcpy(((void*)BG_TILE_TEXT), (void*)Text_126_8_bitTilesLen,2000);  
+	memcpy(((void*)BG_TILE_TEXT), (void*)TEXT_TILES, (59 * 32));  
 
 	//HACK create palette
 	shortCopy((u16*)SPRITE_PAL_DATA, (u16*)Palette, 256);
@@ -54,30 +55,15 @@ int main()
 	tData.verticalFlip = 0;
 	tData.palette = 0;
 
-	shortCopy((u16*)BG_MAP_0, (u16*)&tData, 1);
+	//shortCopy((u16*)BG_MAP_0, (u16*)&tData, 1);
 	//Set the first tile to 0 so it won't render any of them
 	((u16*)BG_MAP_0)[0]=0;
 
-	PrintText("aaaaaaaaaaaaaaaaaaaaaaaaaaaaab");
-	PrintText("bbaa");
-	PrintText("abbbbbbaab");
-	PrintText("aaaaaaaaaaaaaaaaaaaaaaaaaaaaab");
-	PrintText("bbaa");
-	PrintText("abbbbbbaab");
-	PrintText("aaaaaaaaaaaaaaaaaaaaaaaaaaaaab");
-	PrintText("bbaa");
-	PrintText("abbbbbbaab");
-	PrintText("aaaaaaaaaaaaaaaaaaaaaaaaaaaaab");
-	PrintText("bbaa");
-	PrintText("abbbbbbaab");
-	PrintText("aaaaaaaaaaaaaaaaaaaaaaaaaaaaab");
-	PrintText("bbaa");
-	PrintText("abbbbbbaab");
-	PrintText("aaaaaaaaaaaaaaaaaaaaaaaaaaaaab");
-	PrintText("bbaa");
-	PrintText("abbbbbbaab");
-	PrintText("abbbbbbaab");
-	PrintText("abbbbbbaab");
+	PrintText("abcdefghijklmnopqrstuvwxyz");
+	PrintText("0123456789");
+	PrintText(" !@#$^&*()");
+
+
 
 	MapProperties mp0;
 	MapProperties mp1;
@@ -176,7 +162,7 @@ int main()
 			other5 = GOFactory_New(4, 150,30,ENUM_DIR_LEFT, 20);
 			y = 40;
 			z = -1;
-			PrintText("a");
+			//PrintText("a");
 		}
 		else if (y < 0)
 		{
@@ -184,7 +170,7 @@ int main()
 			other5 = GOFactory_New(3, 150,38,ENUM_DIR_LEFT, 20);
 			y = 0;
 			z = 1;
-			PrintText("b");
+			//PrintText("b");
 		}
 
 		other1->z_Depth = y;

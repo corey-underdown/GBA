@@ -50,6 +50,7 @@ typedef u16 COLOR;
 #define ENUM_DIR_RIGHT	3
 #define ENUM_DIR_NONE	4
 
+#define BOOL 	int
 #define TRUE 	1
 #define FALSE 	0
 

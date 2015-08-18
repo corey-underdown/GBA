@@ -35,6 +35,13 @@ void PrintText(const char* s)
 	RedrawLine(s);
 }
 
+void PrintTextInt(int i)
+{
+	char buf[sizeof(int)*3+2];
+	snprintf(buf, sizeof buf, "%d", i);
+	PrintText(buf);
+}
+
 void RedrawLine(const char* s)
 {
 	char* i;

@@ -1,7 +1,8 @@
-#include "BGManager.h"
+/*#include "BGManager.h"
 
 
 BackgroundManager g_BGManager;
 
 
 
+*/

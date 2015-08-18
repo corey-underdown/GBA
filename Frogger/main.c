@@ -5,6 +5,7 @@
 #include "GOFactory.h"
 #include "TextManager.h"
 #include "input.h"
+#include "CollisionManager.h"
 #include "images/Text_Tiles.h"
 
 
@@ -31,33 +32,40 @@ typedef struct
 
 int debug = 1;
 
+/*Frogger "Class"*/
 int froggerCooldown = 10;
 int froggerCounter = 0;
 void FroggerUpdate(GameObject* frogger)
 {
 	froggerCounter += 1;
+	DetectCollision(frogger);
 
 	if(froggerCounter >= froggerCooldown)
 	{
+		BOOL moved = FALSE;
 		if (! ((*KEYS) & KEY_RIGHT))
 		{
 			frogger->sprite->x += 16;
-			//PrintText('right');
+			moved = TRUE;
 		}
 		if (! ((*KEYS) & KEY_LEFT))
 		{
 			frogger->sprite->x -= 16;
+			moved = TRUE;
 		}
 		if (! ((*KEYS) & KEY_UP))
 		{
 			frogger->sprite->y -= 16;
+			moved = TRUE;
 		}
 		if (! ((*KEYS) & KEY_DOWN))
 		{
 			frogger->sprite->y += 16;
+			moved = TRUE;
 		}
 
-		froggerCounter = 0;
+		if(moved == TRUE)
+			froggerCounter = 0;
 	}	
 }
 
@@ -117,7 +125,7 @@ int main()
 	//Setting Up Sprites
 	GOFactory_Init();
 
-	GameObject* player = GOFactory_New(ENUM_GOTYPE_FROGGER, 80, 80,ENUM_DIR_LEFT, 20);
+	GameObject* player = GOFactory_New(ENUM_GOTYPE_FROGGER, 100, 20,ENUM_DIR_LEFT, 20);
 
 	//GameObject* other = GOFactory_New(ENUM_GOTYPE_FROGGER, 80,80,ENUM_DIR_LEFT, 20);
 
@@ -142,8 +150,6 @@ int main()
 
 
 	GOFactory_CopytoOAM();
-	
-
 
 	//Gregs Program ===============================================
 	/*

@@ -1,4 +1,4 @@
-#ifndef BACKGROUND_MANAGER_H
+/*#ifndef BACKGROUND_MANAGER_H
 #define BACKGROUND_MANAGER_H
 
 const unsigned int InitMap[] = {
@@ -58,3 +58,4 @@ void CopyVRAM();
 
 
 #endif
+*/

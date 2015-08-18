@@ -31,6 +31,36 @@ typedef struct
 
 int debug = 1;
 
+int froggerCooldown = 10;
+int froggerCounter = 0;
+void FroggerUpdate(GameObject* frogger)
+{
+	froggerCounter += 1;
+
+	if(froggerCounter >= froggerCooldown)
+	{
+		if (! ((*KEYS) & KEY_RIGHT))
+		{
+			frogger->sprite->x += 16;
+			//PrintText('right');
+		}
+		if (! ((*KEYS) & KEY_LEFT))
+		{
+			frogger->sprite->x -= 16;
+		}
+		if (! ((*KEYS) & KEY_UP))
+		{
+			frogger->sprite->y -= 16;
+		}
+		if (! ((*KEYS) & KEY_DOWN))
+		{
+			frogger->sprite->y += 16;
+		}
+
+		froggerCounter = 0;
+	}	
+}
+
 int main()
 {
 	//Enable Sprites
@@ -87,7 +117,7 @@ int main()
 	//Setting Up Sprites
 	GOFactory_Init();
 
-	GameObject* player = GOFactory_New(ENUM_GOTYPE_FROGGER, 20,30,ENUM_DIR_LEFT, 20);
+	GameObject* player = GOFactory_New(ENUM_GOTYPE_FROGGER, 80, 80,ENUM_DIR_LEFT, 20);
 
 	//GameObject* other = GOFactory_New(ENUM_GOTYPE_FROGGER, 80,80,ENUM_DIR_LEFT, 20);
 
@@ -145,7 +175,7 @@ int main()
 	while(1)
 	{
 		//Update keys
-		PollKeys();
+		//PollKeys();
 		//Gmae Object Factory Code================================
 		other5->sprite->x += 1;
 		//other->sprite->y = x;
@@ -188,10 +218,7 @@ int main()
 			}
 		}*/
 
-		if(isKeyDown() & KEY_R)
-		{
-			PrintText("123");
-		}
+		FroggerUpdate(player);
 
 		waitVBlank();
 		GOFactory_CopytoOAM();

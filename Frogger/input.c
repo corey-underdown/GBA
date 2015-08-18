@@ -1,6 +1,6 @@
-#include "input.h" 
+//#include "input.h" 
 
-unsigned short currentKey = 0, previousKey = 0;
+/*unsigned short currentKey = 0, previousKey = 0;
 
 typedef struct
 {
@@ -12,7 +12,7 @@ KeyInput Keys;
 
 unsigned char delay		= 60;
 unsigned char repeat 	= 30;
-unsigned char count		= 60;
+unsigned char count		= 60;*/
 
 /*void PollKeys()
 {
@@ -47,13 +47,13 @@ unsigned char count		= 60;
 	}
 } */
 
-void PollKeys()
+/*void PollKeys()
 {
 	Keys.Last = Keys.Current;
 	Keys.Current = ~(KEYS_LOC & KEY_MASK);
-}
+}*/
 
-unsigned short isKeyDown()
+/*unsigned short isKeyDown(unsigned short key)
 {
-	return Keys.Down;
-}
+	return (!((*KEYS) & key));
+} */

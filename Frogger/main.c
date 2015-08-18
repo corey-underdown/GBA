@@ -5,7 +5,8 @@
 #include "GOFactory.h"
 #include "TextManager.h"
 #include "input.h"
-
+#include "CollisionManager.h"
+#include "images/Text_Tiles.h"
 
 
 
@@ -31,6 +32,43 @@ typedef struct
 
 int debug = 1;
 
+/*Frogger "Class"*/
+int froggerCooldown = 10;
+int froggerCounter = 0;
+void FroggerUpdate(GameObject* frogger)
+{
+	froggerCounter += 1;
+	DetectCollision(frogger);
+
+	if(froggerCounter >= froggerCooldown)
+	{
+		BOOL moved = FALSE;
+		if (! ((*KEYS) & KEY_RIGHT))
+		{
+			frogger->sprite->x += 16;
+			moved = TRUE;
+		}
+		if (! ((*KEYS) & KEY_LEFT))
+		{
+			frogger->sprite->x -= 16;
+			moved = TRUE;
+		}
+		if (! ((*KEYS) & KEY_UP))
+		{
+			frogger->sprite->y -= 16;
+			moved = TRUE;
+		}
+		if (! ((*KEYS) & KEY_DOWN))
+		{
+			frogger->sprite->y += 16;
+			moved = TRUE;
+		}
+
+		if(moved == TRUE)
+			froggerCounter = 0;
+	}	
+}
+
 int main()
 {
 	//Enable Sprites
@@ -39,14 +77,15 @@ int main()
 
 	waitVBlank();
 
-	BGManager_Init();
-	BGManager_CopyVRAM();
+	//HACK to create temporary tile
+	memcpy(((void*)BG_TILE_TEXT), (void*)TEXT_TILES, (59 * 32));  
 
 	//HACK create palette
 	shortCopy((u16*)SPRITE_PAL_DATA, (u16*)Palette, 256);
 	shortCopy((u16*)SPRITE_BITMAPS, (u16*)Bitmap, 80);
 
-
+	//set background palette  
+	shortCopy((void*)BG_PAL_DATA, (void*)Palette, 256);
 
 	TileData tData; 
 	tData.tile = 1;
@@ -86,7 +125,7 @@ int main()
 	//Setting Up Sprites
 	GOFactory_Init();
 
-	GameObject* player = GOFactory_New(ENUM_GOTYPE_FROGGER, 20,30,ENUM_DIR_LEFT, 20);
+	GameObject* player = GOFactory_New(ENUM_GOTYPE_FROGGER, 100, 20,ENUM_DIR_LEFT, 20);
 
 	//GameObject* other = GOFactory_New(ENUM_GOTYPE_FROGGER, 80,80,ENUM_DIR_LEFT, 20);
 
@@ -111,8 +150,6 @@ int main()
 
 
 	GOFactory_CopytoOAM();
-	
-
 
 	//Gregs Program ===============================================
 	/*
@@ -144,7 +181,7 @@ int main()
 	while(1)
 	{
 		//Update keys
-		PollKeys();
+		//PollKeys();
 		//Gmae Object Factory Code================================
 		other5->sprite->x += 1;
 		//other->sprite->y = x;
@@ -187,10 +224,7 @@ int main()
 			}
 		}*/
 
-		if(isKeyDown() & KEY_R)
-		{
-			PrintText("123");
-		}
+		FroggerUpdate(player);
 
 		waitVBlank();
 		GOFactory_CopytoOAM();

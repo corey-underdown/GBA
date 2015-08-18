@@ -1,4 +1,4 @@
-#ifndef BACKGROUND_MANAGER_H
+/*#ifndef BACKGROUND_MANAGER_H
 #define BACKGROUND_MANAGER_H
 
 #include "toolbox.h"
@@ -71,3 +71,4 @@ void BGManager_CopyVRAM();
 
 
 #endif
+*/

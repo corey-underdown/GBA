@@ -12,8 +12,8 @@
 #define KEY_R 		(1<<8)
 #define KEY_L 		(1<<9)
 #define KEY_MASK 	0x03FF
-#define KEYS_LOC	0x04000130;
+int* KEYS = (int*)0x04000130;
 
-void PollKeys();
+//void PollKeys();
 
 #endif

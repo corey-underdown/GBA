@@ -1,6 +1,8 @@
 #ifndef BACKGROUND_MANAGER_H
 #define BACKGROUND_MANAGER_H
 
+#include "toolbox.h"
+
 const unsigned int InitMap[] = {
 	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
@@ -28,6 +30,15 @@ typedef struct
 	unsigned char palette:4;
 }TileData;
 
+
+
+TileData ROW_Brick[] = {
+
+	{0,0,0,0}, {1,0,0,0}, {0,0,0,0}, {1,0,0,0}, {0,0,0,0}, {1,0,0,0}, {0,0,0,0}, {1,0,0,0}, {0,0,0,0}, {1,0,0,0}, {0,0,0,0}, {1,0,0,0}, {0,0,0,0}, {1,0,0,0}, {0,0,0,0}, {1,0,0,0}, {0,0,0,0}, {1,0,0,0}, {0,0,0,0}, {1,0,0,0}, {0,0,0,0}, {1,0,0,0}, {0,0,0,0}, {1,0,0,0}, {0,0,0,0}, {1,0,0,0}, {0,0,0,0}, {1,0,0,0}, {0,0,0,0}, {1,0,0,0}, {0,0,0,0}, {1,0,0,0}, 
+	{2,0,0,0}, {3,0,0,0}, {2,0,0,0}, {3,0,0,0}, {2,0,0,0}, {3,0,0,0}, {2,0,0,0}, {3,0,0,0}, {2,0,0,0}, {3,0,0,0}, {2,0,0,0}, {3,0,0,0}, {2,0,0,0}, {3,0,0,0}, {2,0,0,0}, {3,0,0,0}, {2,0,0,0}, {3,0,0,0}, {2,0,0,0}, {3,0,0,0}, {2,0,0,0}, {3,0,0,0}, {2,0,0,0}, {3,0,0,0}, {2,0,0,0}, {3,0,0,0}, {2,0,0,0}, {3,0,0,0}, {2,0,0,0}, {3,0,0,0}, {2,0,0,0}, {3,0,0,0}
+
+};
+
 typedef struct 
 {
 	unsigned char priority:2;
@@ -44,17 +55,19 @@ typedef struct
 typedef struct
 {
 	MapProperties mapProperties[4];
-	TileData background1Map[16 * 16];//Squares
+	TileData ghost_VRAM[32 * 32];//Squares
 } BackgroundManager;
 
 extern BackgroundManager g_BGManager;
 
 
-void ShiftUp(int zone);
+void BGManager_ShiftUp(int zone);
 
-void InitMap( int map[32 * 32]);
+void BGManager_Init();
 
-void CopyVRAM();
+void BGManager_InitMap( int map[32 * 32]);
+
+void BGManager_CopyVRAM();
 
 
 #endif

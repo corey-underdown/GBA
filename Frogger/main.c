@@ -5,7 +5,7 @@
 #include "GOFactory.h"
 #include "TextManager.h"
 #include "input.h"
-#include "images/Text_Tiles.h"
+
 
 
 
@@ -39,15 +39,14 @@ int main()
 
 	waitVBlank();
 
-	//HACK to create temporary tile
-	memcpy(((void*)BG_TILE_TEXT), (void*)TEXT_TILES, (59 * 32));  
+	BGManager_Init();
+	BGManager_CopyVRAM();
 
 	//HACK create palette
 	shortCopy((u16*)SPRITE_PAL_DATA, (u16*)Palette, 256);
 	shortCopy((u16*)SPRITE_BITMAPS, (u16*)Bitmap, 80);
 
-	//set background palette  
-	shortCopy((void*)BG_PAL_DATA, (void*)Palette, 256);
+
 
 	TileData tData; 
 	tData.tile = 1;

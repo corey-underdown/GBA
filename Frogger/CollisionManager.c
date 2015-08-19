@@ -1,7 +1,8 @@
 #include "CollisionManager.h"
 
 void DetectCollision(GameObject* frogger){
-	for(int i = 0; i < 127; i++)
+	int i = 0;
+	for(i = 0; i < 127; i++)
 	{
 		if(g_GOFactory.GOList[i].alive == TRUE && i != 0)
 		{
@@ -10,7 +11,7 @@ void DetectCollision(GameObject* frogger){
 			g_GOFactory.GOList[i].sprite->y < frogger->sprite->y + 8 &&
 			g_GOFactory.GOList[i].sprite->y + 8 > frogger->sprite->y)
 			{
-				PrintTextInt(i);	
+				//PrintTextInt(i);	
 			}
 		}
 	}

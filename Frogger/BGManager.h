@@ -1,4 +1,4 @@
-/*#ifndef BACKGROUND_MANAGER_H
+#ifndef BACKGROUND_MANAGER_H
 #define BACKGROUND_MANAGER_H
 
 #include "toolbox.h"
@@ -29,8 +29,6 @@ typedef struct
 	unsigned char verticalFlip:1;
 	unsigned char palette:4;
 }TileData;
-
-
 
 TileData ROW_Brick[] = {
 
@@ -67,8 +65,10 @@ void BGManager_Init();
 
 void BGManager_InitMap( int map[32 * 32]);
 
+void BGManager_SetRow(u16* newRow, int rowNum);
+
 void BGManager_CopyVRAM();
 
 
 #endif
-*/
+

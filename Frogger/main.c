@@ -6,7 +6,7 @@
 #include "TextManager.h"
 #include "input.h"
 #include "CollisionManager.h"
-#include "images/Text_Tiles.h"
+//#include "images/Text_Tiles.h"
 
 
 
@@ -77,15 +77,12 @@ int main()
 
 	waitVBlank();
 
-	//HACK to create temporary tile
-	memcpy(((void*)BG_TILE_TEXT), (void*)TEXT_TILES, (59 * 32));  
+	BGManager_Init();
+	BGManager_CopyVRAM();
 
 	//HACK create palette
 	shortCopy((u16*)SPRITE_PAL_DATA, (u16*)Palette, 256);
 	shortCopy((u16*)SPRITE_BITMAPS, (u16*)Bitmap, 80);
-
-	//set background palette  
-	shortCopy((void*)BG_PAL_DATA, (void*)Palette, 256);
 
 	TileData tData; 
 	tData.tile = 1;
@@ -117,8 +114,17 @@ int main()
 	mp0.areaOverflow = 0;
 	mp0.sizeMap = 0; 
 	
+	mp1.priority = 0;
+	mp1.startAdressTileData = 1;
+	mp1.unused = 0;
+	mp1.mosaic = 0;
+	mp1.paletteType = 0;
+	mp1.startAdressTileMap = 12;
+	mp1.areaOverflow = 0;
+	mp1.sizeMap = 0; 
 
 	shortCopy((u16*)BG_MAP_PROP_0, (u16*)&mp0, 1);
+	shortCopy((u16*)BG_MAP_PROP_1, (u16*)&mp1, 1);
 
 	//Game Object Factory Using==================================================
 	

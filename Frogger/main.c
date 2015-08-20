@@ -69,16 +69,25 @@ void FroggerUpdate(GameObject* frogger)
 	}	
 }
 
+/*Race Car "class"*/
+void RaceCarUpdate(GameObject* racecar)
+{
+	racecar->sprite->x++;
+	if(racecar->sprite->x >= SCREEN_WIDTH + 16)
+		racecar->sprite->x = 0;
+}
+
 int main()
 {
 	//Enable Sprites
+	//REG_DISPCNT = 0x1100;
 	REG_DISPCNT = 0x1100;
 	//REG_DISPCNT = REG_DISPCNT - 0x0100;
-
+ 
 	waitVBlank();
 
-	BGManager_Init();
-	BGManager_CopyVRAM();
+	BGManager_Init(); 
+	//BGManager_CopyVRAM();
 
 	//HACK create palette
 	shortCopy((u16*)SPRITE_PAL_DATA, (u16*)Palette, 256);
@@ -92,9 +101,9 @@ int main()
 
 	//shortCopy((u16*)BG_MAP_0, (u16*)&tData, 1);
 	//Set the first tile to 0 so it won't render any of them
-	((u16*)BG_MAP_0)[0]=0;
+	//((u16*)BG_MAP_0)[0]=1;
 
-	PrintText("abcdefghijklmnopqrstuvwxyz");
+	PrintText("!abcdefghijklmnopqrstuvwxyz");
 	PrintText("0123456789");
 	PrintText(" !@#$^&*()");
 
@@ -123,15 +132,35 @@ int main()
 	mp1.areaOverflow = 0;
 	mp1.sizeMap = 0; 
 
+	mp2.priority = 0;
+	mp2.startAdressTileData = 2;
+	mp2.unused = 0;
+	mp2.mosaic = 0;
+	mp2.paletteType = 0;
+	mp2.startAdressTileMap = 12;
+	mp2.areaOverflow = 0;
+	mp2.sizeMap = 0; 
+
+	mp3.priority = 0;
+	mp3.startAdressTileData = 3;
+	mp3.unused = 0;
+	mp3.mosaic = 0;
+	mp3.paletteType = 0;
+	mp3.startAdressTileMap = 12;
+	mp3.areaOverflow = 0;
+	mp3.sizeMap = 0; 
+
 	shortCopy((u16*)BG_MAP_PROP_0, (u16*)&mp0, 1);
 	shortCopy((u16*)BG_MAP_PROP_1, (u16*)&mp1, 1);
-
+	shortCopy((u16*)BG_MAP_PROP_2, (u16*)&mp2, 1);
+	shortCopy((u16*)BG_MAP_PROP_3, (u16*)&mp3, 1);
+ 
 	//Game Object Factory Using==================================================
 	
 	//Setting Up Sprites
 	GOFactory_Init();
 
-	GameObject* player = GOFactory_New(ENUM_GOTYPE_FROGGER, 100, 20,ENUM_DIR_LEFT, 20);
+	GameObject* player = GOFactory_New(ENUM_GOTYPE_FROGGER, 112, 144,ENUM_DIR_LEFT, 20);
 
 	//GameObject* other = GOFactory_New(ENUM_GOTYPE_FROGGER, 80,80,ENUM_DIR_LEFT, 20);
 
@@ -152,6 +181,8 @@ int main()
 	GameObject* other5 = GOFactory_New(4, 100,100,ENUM_DIR_LEFT, 20);
 	other5->z_Depth = 0;
 
+	GameObject* raceCar1 = GOFactory_New(1, 100, 100, ENUM_DIR_LEFT, 20);
+	raceCar1->z_Depth = 1;
 
 
 
@@ -231,6 +262,7 @@ int main()
 		}*/
 
 		FroggerUpdate(player);
+		RaceCarUpdate(raceCar1);
 
 		waitVBlank();
 		GOFactory_CopytoOAM();

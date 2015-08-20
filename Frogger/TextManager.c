@@ -46,7 +46,7 @@ void RedrawLine(const char* s)
 {
 	char* i;
 	int tempCounter;
-	for(i = s; *i; i++)
+	for(i = s; *i; i++) 
 	{
 		((volatile u16*)BG_MAP_0)[(row * SCREEN_WIDTH_TILES) + tempCounter]=characterArray[(int)*i];
 		tempCounter++; 

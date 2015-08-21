@@ -69,6 +69,8 @@ void FroggerUpdate(GameObject* frogger)
 	}	
 }
 
+
+
 /*Race Car "class"*/
 void RaceCarUpdate(GameObject* racecar)
 {
@@ -77,17 +79,37 @@ void RaceCarUpdate(GameObject* racecar)
 		racecar->sprite->x = 0;
 }
 
+void SetBackgrounglayer(BOOL one, BOOL two, BOOL three, BOOL four)
+{
+	u16 temp = REG_DISPCNT;
+
+	temp = temp & 0xF0FF;
+
+	temp = temp | (one << 8) | (two << 9);
+
+	REG_DISPCNT = temp;
+
+	//12 << sprite one
+
+}
+
 int main()
 {
 	//Enable Sprites
 	//REG_DISPCNT = 0x1100;
-	REG_DISPCNT = 0x1100;
+	REG_DISPCNT = 0x1000;
+
+
+
+	SetBackgrounglayer(1,1,0,0);
+
 	//REG_DISPCNT = REG_DISPCNT - 0x0100;
  
 	waitVBlank();
 
 	BGManager_Init(); 
-	//BGManager_CopyVRAM();
+
+	BGManager_CopyVRAM();
 
 	//HACK create palette
 	shortCopy((u16*)SPRITE_PAL_DATA, (u16*)Palette, 256);
@@ -111,8 +133,8 @@ int main()
 
 	MapProperties mp0;
 	MapProperties mp1;
-	MapProperties mp2;
-	MapProperties mp3;
+
+
 
 	mp0.priority = 0;
 	mp0.startAdressTileData = 0;
@@ -128,32 +150,17 @@ int main()
 	mp1.unused = 0;
 	mp1.mosaic = 0;
 	mp1.paletteType = 0;
-	mp1.startAdressTileMap = 12;
+	mp1.startAdressTileMap = 13;
 	mp1.areaOverflow = 0;
 	mp1.sizeMap = 0; 
 
-	mp2.priority = 0;
-	mp2.startAdressTileData = 2;
-	mp2.unused = 0;
-	mp2.mosaic = 0;
-	mp2.paletteType = 0;
-	mp2.startAdressTileMap = 12;
-	mp2.areaOverflow = 0;
-	mp2.sizeMap = 0; 
 
-	mp3.priority = 0;
-	mp3.startAdressTileData = 3;
-	mp3.unused = 0;
-	mp3.mosaic = 0;
-	mp3.paletteType = 0;
-	mp3.startAdressTileMap = 12;
-	mp3.areaOverflow = 0;
-	mp3.sizeMap = 0; 
+
+
 
 	shortCopy((u16*)BG_MAP_PROP_0, (u16*)&mp0, 1);
 	shortCopy((u16*)BG_MAP_PROP_1, (u16*)&mp1, 1);
-	shortCopy((u16*)BG_MAP_PROP_2, (u16*)&mp2, 1);
-	shortCopy((u16*)BG_MAP_PROP_3, (u16*)&mp3, 1);
+
  
 	//Game Object Factory Using==================================================
 	

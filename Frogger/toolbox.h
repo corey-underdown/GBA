@@ -50,7 +50,7 @@ typedef u16 COLOR;
 #define ENUM_DIR_RIGHT	3
 #define ENUM_DIR_NONE	4
 
-#define BOOL 	int
+#define BOOL 	u16
 #define TRUE 	1
 #define FALSE 	0
 
@@ -129,7 +129,7 @@ INLINE void waitVDraw()
 	{}
 }
 
-INLINE void shortCopy(u16 *dest, u16 *src, int shortCount)
+INLINE void shortCopy(volatile u16 *dest, u16 *src, int shortCount)
 {
 	int i;
 	for(i=0;i<shortCount;++i)

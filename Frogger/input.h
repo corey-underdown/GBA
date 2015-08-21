@@ -12,8 +12,21 @@
 #define KEY_R 		(1<<8)
 #define KEY_L 		(1<<9)
 #define KEY_MASK 	0x03FF
-int* KEYS = (int*)0x04000130;
 
-//void PollKeys();
+typedef struct
+{
+	unsigned short Last;
+	unsigned short Current;
+}KeyInput;
+
+#define KEYS (int*)0x04000130
+
+void PollKeys();
+
+unsigned short isKeyPressed(unsigned short key);
+
+unsigned short isKeyDown(unsigned short key);
+
+unsigned short isKeyUp(unsigned short key);
 
 #endif

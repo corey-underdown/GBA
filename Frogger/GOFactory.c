@@ -1,12 +1,40 @@
 #include "GOFactory.h"
+#include "images/TestImage.h"
+#include "GOUpdates.h"
+
 
 GOFactory g_GOFactory;
 
 
+void GOFactory_ToggleSpritesIsActive(BOOL toggle)
+{
+	u16 temp = REG_DISPCNT;
 
+	temp = temp & 0x0FFF;
+
+	temp = temp | (toggle << 12);
+
+	REG_DISPCNT = temp;
+}
+
+BOOL GOFactory_GetSpritesIsActive()
+{
+	u16 temp = REG_DISPCNT;
+
+	temp = temp & 0xF000;
+
+	temp = temp & (1 << 12);
+
+	return temp;
+}
 
 void GOFactory_Init()
 {
+	//create palette
+	shortCopy((u16*)SPRITE_PAL_DATA, (u16*)Palette, 256);
+	//Copy Sprites
+	shortCopy((u16*)SPRITE_BITMAPS, (u16*)Bitmap, 80);
+
 	int i = 0;
 
 	for (i = 0; i < 128; i++)
@@ -17,11 +45,22 @@ void GOFactory_Init()
 		g_GOFactory.ghostOAM[i].y = 500;
 	//Set all game objects z to 1000;
 		g_GOFactory.GOList[i].alive = FALSE;
+		g_GOFactory.GOList[i].Update = &GO_Update_Default;
 	//
 	//Zero the goCount
 	//
 	}
 
+}
+
+void GOFactory_Update(float dt)
+{
+	int i = 0;
+	for (i = 0; i < 128; i ++)
+	{
+		g_GOFactory.GOList[i].Update(i, dt);
+
+	}
 }
 
 GameObject* GOFactory_New(int enum_type, int posX, int posY, int enum_dir, float speed)
@@ -41,6 +80,8 @@ GameObject* GOFactory_New(int enum_type, int posX, int posY, int enum_dir, float
 			g_GOFactory.GOList[i].sprite = &(g_GOFactory.ghostOAM[g_GOFactory.goCount]);
 			//Set Index
 			g_GOFactory.GOList[i].index = &(g_GOFactory.indexList[g_GOFactory.goCount]);
+			//Set Default Update
+			g_GOFactory.GOList[i].Update = &GO_Update_Default;
 			//Set all default Properties
 			g_GOFactory.GOList[i].sprite->y = posY;//Set Init Position
 			g_GOFactory.GOList[i].sprite->enableRotation = 0;//Do not allow rotation
@@ -68,33 +109,18 @@ GameObject* GOFactory_New(int enum_type, int posX, int posY, int enum_dir, float
 			g_GOFactory.GOList[i].sprite->size = 0;//0, 1, 2 ,3 ,4  0 = 8 pixels, 1 = 16 pixels, 2 = 32 pixels, 3 = 64 pixels depending on the sprite size
 			g_GOFactory.GOList[i].sprite->tileIndex = 0;//first tile in tile array.
 			g_GOFactory.GOList[i].sprite->pallet = 0;
+			g_GOFactory.GOList[i].Update = &GO_Update_Frogger;
 			}
-
-			else if (enum_type == 1)
+			else if (enum_type == ENUM_GOTYPE_CAR_RACE)
 			{
 			g_GOFactory.GOList[i].sprite->shape = 0;//Square or Rect
 			g_GOFactory.GOList[i].sprite->spcRotation = 0;//DEpending on prvious values this will change.
 			g_GOFactory.GOList[i].sprite->size = 0;//0, 1, 2 ,3 ,4  0 = 8 pixels, 1 = 16 pixels, 2 = 32 pixels, 3 = 64 pixels depending on the sprite size
 			g_GOFactory.GOList[i].sprite->tileIndex = 1;//first tile in tile array.
 			g_GOFactory.GOList[i].sprite->pallet = 0;
+			g_GOFactory.GOList[i].Update = &GO_Update_RacingCar;
 			}
-			else if (enum_type == 2)
-			{
-			g_GOFactory.GOList[i].sprite->shape = 0;//Square or Rect
-			g_GOFactory.GOList[i].sprite->spcRotation = 0;//DEpending on prvious values this will change.
-			g_GOFactory.GOList[i].sprite->size = 0;//0, 1, 2 ,3 ,4  0 = 8 pixels, 1 = 16 pixels, 2 = 32 pixels, 3 = 64 pixels depending on the sprite size
-			g_GOFactory.GOList[i].sprite->tileIndex = 2;//first tile in tile array.
-			g_GOFactory.GOList[i].sprite->pallet = 0;
-			}
-			else if (enum_type == 3)
-			{
-			g_GOFactory.GOList[i].sprite->shape = 0;//Square or Rect
-			g_GOFactory.GOList[i].sprite->spcRotation = 0;//DEpending on prvious values this will change.
-			g_GOFactory.GOList[i].sprite->size = 0;//0, 1, 2 ,3 ,4  0 = 8 pixels, 1 = 16 pixels, 2 = 32 pixels, 3 = 64 pixels depending on the sprite size
-			g_GOFactory.GOList[i].sprite->tileIndex = 3;//first tile in tile array.
-			g_GOFactory.GOList[i].sprite->pallet = 0;
-			}
-			else if (enum_type == 4)
+			else 
 			{
 			g_GOFactory.GOList[i].sprite->shape = 0;//Square or Rect
 			g_GOFactory.GOList[i].sprite->spcRotation = 0;//DEpending on prvious values this will change.

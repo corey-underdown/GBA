@@ -27,6 +27,10 @@ typedef struct
 	unsigned short 	rotation;//actual rotation
 }SpriteData;
 
+//typedef struct go GameObject;
+
+typedef void (*GO_Update)(int, float);
+
 typedef struct 
 {
 	int alive;
@@ -36,6 +40,7 @@ typedef struct
 	float z_Depth;
 	float speed;
 	int enum_dir;
+	GO_Update Update;
 }GameObject;
 
 typedef struct
@@ -46,9 +51,16 @@ typedef struct
 	int indexList[128];
 }GOFactory;
 
+
 extern GOFactory g_GOFactory;
 
 void GOFactory_Init();
+
+void GOFactory_Update(float dt);
+
+void GOFactory_ToggleSpritesIsActive(BOOL toggle);
+
+BOOL GOFactory_GetSpritesIsActive();
 
 GameObject* GOFactory_New(int enum_type, int posX, int posY, int enum_dir, float speed);//Default
 

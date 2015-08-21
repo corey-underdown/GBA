@@ -2,24 +2,71 @@
 #include "Images/BGTiles.h"
 #include "images/Text_Tiles.h"
 #include <stdio.h>
-#include "toolbox.h"
 
 
 BackgroundManager g_BGManager;
 
 
+void BGManager_SetLayers(BOOL zero, BOOL one, BOOL two, BOOL three)
+{
+	u16 temp = REG_DISPCNT;
 
+	temp = temp & 0xF0FF;
+
+	temp = temp | (zero << 8) | (one << 9) | (two << 10) | (three << 11);
+
+	REG_DISPCNT = temp;
+}
+
+BOOL BGManager_GetLayerEnabled(int layer)
+{
+	u16 temp = REG_DISPCNT;
+
+	int shift = layer + 8;
+
+	temp = temp & 0x0F00;
+
+	temp = temp & (1 << 8);
+
+	return temp;
+}
 
 void BGManager_Init()
 {
+	//Set Text Tiles
 	shortCopy(((u16*)BG_TILE_TEXT), (u16*)TEXT_TILES, (59 * 16));  
-	//shortCopy(((u16*)BG_TILE_TEXT), (u16*)BG_Bitmap, (12 * 32));  
+	//Set Background Tiles
 	shortCopy(((u16*)(BG_TILE_GAME + 32)), (u16*)BG_Bitmap, (12 * 16)); 
-	//memcpy ((char*)BG_TILE_TEXT, ((char*)&(TEXT_TILES), (59 * 32));
-	//memcpy ((char*)BG_TILE_GAME, ((char*)&(BG_Bitmap), (12 * 32));
-
 	//set background palette  
 	shortCopy((u16*)BG_PAL_DATA, (u16*)TEXT_BG_PALETTE, 256);
+
+
+	//Set Up Text Layer
+	MapProperties mp0;
+	mp0.priority = 0;
+	mp0.startAdressTileData = 0;
+	mp0.unused = 0;
+	mp0.mosaic = 0;
+	mp0.paletteType = 0;
+	mp0.startAdressTileMap = 12;
+	mp0.areaOverflow = 0;
+	mp0.sizeMap = 0; 
+	
+	//Set up Layer 1
+	MapProperties mp1;
+	mp1.priority = 0;
+	mp1.startAdressTileData = 1;
+	mp1.unused = 0;
+	mp1.mosaic = 0;
+	mp1.paletteType = 0;
+	mp1.startAdressTileMap = 13;
+	mp1.areaOverflow = 0;
+	mp1.sizeMap = 0; 
+
+	//Copy Data
+	shortCopy((u16*)BG_MAP_PROP_0, (u16*)&mp0, 1);
+	shortCopy((u16*)BG_MAP_PROP_1, (u16*)&mp1, 1);
+
 
 
 

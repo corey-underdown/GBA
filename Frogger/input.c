@@ -1,59 +1,38 @@
-//#include "input.h" 
+#include "input.h" 
 
-/*unsigned short currentKey = 0, previousKey = 0;
+unsigned short currentKey = 0, previousKey = 0;
 
-typedef struct
+KeyInput g_Keys;
+
+void PollKeys()
 {
-	unsigned short Last;
-	unsigned short Current;
-}KeyInput;
+	g_Keys.Last = g_Keys.Current;
+	g_Keys.Current = ~(*KEYS & KEY_MASK);
+}
 
-KeyInput Keys;
-
-unsigned char delay		= 60;
-unsigned char repeat 	= 30;
-unsigned char count		= 60;*/
-
-/*void PollKeys()
+unsigned short isKeyPressed(unsigned short key)
 {
-	Keys.Last = Keys.Held;
-	Keys.Held = (0x04000130 & 0x03FF) ^ 0x03FF;
+	return (((g_Keys.Current) & key));
+} 
 
-	unsigned short pressed = Keys.Held & (Keys.Last ^ 0x03FF);
-
-	Keys.DownRepeat	|=	pressed;
-	Keys.Down |= pressed;
-
-	unsigned short released = ((Keys.Held ^ 0x03FF) & Keys.Last);
-
-	Keys.Up		|=	released;
-
-	Keys.Down	&= ~released;
-	Keys.DownRepeat	&= ~released;
-
-	Keys.Up &= ~pressed;
-
-	if ( Keys.Last != Keys.Held) count = delay;
-
-
-	if ( delay != 0)
-	{
-		count--;
-		if (count == 0)
-		{
-			count = repeat;
-			Keys.DownRepeat |= Keys.Held;
-		}
-	}
-} */
-
-/*void PollKeys()
+unsigned short isKeyDown(unsigned short key)
 {
-	Keys.Last = Keys.Current;
-	Keys.Current = ~(KEYS_LOC & KEY_MASK);
-}*/
+	unsigned short tempCur = ((g_Keys.Current) & key);
+	unsigned short tempLast = ((g_Keys.Last) & key);
+	if (tempCur != 0 && tempLast == 0)
+		return 1;
+	else
+		return 0;
+} 
 
-/*unsigned short isKeyDown(unsigned short key)
+unsigned short isKeyUp(unsigned short key)
 {
-	return (!((*KEYS) & key));
-} */
+	unsigned short tempCur = ((g_Keys.Current) & key);
+	unsigned short tempLast = ((g_Keys.Last) & key);
+	if (tempCur == 0 && tempLast != 0)
+		return 1;
+	else
+		return 0;
+} 
+
+

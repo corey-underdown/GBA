@@ -29,6 +29,7 @@ void GO_Update_RacingCar(int num, float dt)
 {
 	GameObject* this = &g_GOFactory.GOList[num];
 	this->sprite->x++;
+	PrintTextInt(this->enum_dir);
 	if(this->sprite->x >= SCREEN_WIDTH + 16)
 		this->sprite->x = 0;
 }

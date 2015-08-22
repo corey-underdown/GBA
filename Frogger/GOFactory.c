@@ -83,6 +83,8 @@ GameObject* GOFactory_New(int enum_type, int posX, int posY, int enum_dir, float
 			g_GOFactory.GOList[i].index = &(g_GOFactory.indexList[g_GOFactory.goCount]);
 			//Set Default Update
 			g_GOFactory.GOList[i].Update = &GO_Update_Default;
+			//Set the facing Dir
+			g_GOFactory.GOList[i].enum_dir = enum_dir;
 			//Set all default Properties
 			g_GOFactory.GOList[i].sprite->y = posY;//Set Init Position
 			g_GOFactory.GOList[i].sprite->enableRotation = 0;//Do not allow rotation

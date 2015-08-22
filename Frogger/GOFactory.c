@@ -1,5 +1,6 @@
 #include "GOFactory.h"
-#include "images/TestImage.h"
+#include "images/GO_Palette.h"
+#include "images/GO_Tiles.h"
 #include "GOUpdates.h"
 
 
@@ -31,9 +32,9 @@ BOOL GOFactory_GetSpritesIsActive()
 void GOFactory_Init()
 {
 	//create palette
-	shortCopy((u16*)SPRITE_PAL_DATA, (u16*)Palette, 256);
+	shortCopy((u16*)SPRITE_PAL_DATA, (u16*)GO_PALETTE, 256);
 	//Copy Sprites
-	shortCopy((u16*)SPRITE_BITMAPS, (u16*)Bitmap, 80);
+	shortCopy((u16*)SPRITE_BITMAPS, (u16*)GO_TILES, 80);
 
 	int i = 0;
 
@@ -106,17 +107,17 @@ GameObject* GOFactory_New(int enum_type, int posX, int posY, int enum_dir, float
 			{
 			g_GOFactory.GOList[i].sprite->shape = 0;//Square or Rect
 			g_GOFactory.GOList[i].sprite->spcRotation = 0;//DEpending on prvious values this will change.
-			g_GOFactory.GOList[i].sprite->size = 0;//0, 1, 2 ,3 ,4  0 = 8 pixels, 1 = 16 pixels, 2 = 32 pixels, 3 = 64 pixels depending on the sprite size
+			g_GOFactory.GOList[i].sprite->size = 4;//0, 1, 2 ,3 ,4  0 = 8 pixels, 1 = 16 pixels, 2 = 32 pixels, 3 = 64 pixels depending on the sprite size
 			g_GOFactory.GOList[i].sprite->tileIndex = 0;//first tile in tile array.
-			g_GOFactory.GOList[i].sprite->pallet = 0;
+			g_GOFactory.GOList[i].sprite->pallet = 3;
 			g_GOFactory.GOList[i].Update = &GO_Update_Frogger;
 			}
 			else if (enum_type == ENUM_GOTYPE_CAR_RACE)
 			{
 			g_GOFactory.GOList[i].sprite->shape = 0;//Square or Rect
 			g_GOFactory.GOList[i].sprite->spcRotation = 0;//DEpending on prvious values this will change.
-			g_GOFactory.GOList[i].sprite->size = 0;//0, 1, 2 ,3 ,4  0 = 8 pixels, 1 = 16 pixels, 2 = 32 pixels, 3 = 64 pixels depending on the sprite size
-			g_GOFactory.GOList[i].sprite->tileIndex = 1;//first tile in tile array.
+			g_GOFactory.GOList[i].sprite->size = 4;//0, 1, 2 ,3 ,4  0 = 8 pixels, 1 = 16 pixels, 2 = 32 pixels, 3 = 64 pixels depending on the sprite size
+			g_GOFactory.GOList[i].sprite->tileIndex = 4;//first tile in tile array.
 			g_GOFactory.GOList[i].sprite->pallet = 0;
 			g_GOFactory.GOList[i].Update = &GO_Update_RacingCar;
 			}

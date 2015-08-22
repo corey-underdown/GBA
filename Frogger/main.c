@@ -1,9 +1,7 @@
 #include <stdio.h>
 #include "toolbox.h"
-#include "images/TextBitmap.h"
 #include "GOFactory.h"
 #include "TextManager.h"
-#include "input.h"
 #include "CollisionManager.h"
 #include "GOUpdates.h"
 //#include "images/Text_Tiles.h"
@@ -88,7 +86,7 @@ int main()
 
 
 
-		
+
 
 		//Update keys
 		PollKeys();

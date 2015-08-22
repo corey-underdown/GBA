@@ -1,6 +1,6 @@
 #include "BGManager.h"
-#include "Images/BGTiles.h"
-#include "Images/BG_Pallet.h"
+#include "Images/BG_Tiles.h"
+#include "Images/BG_Palette.h"
 #include "images/Text_Tiles.h"
 #include <stdio.h>
 
@@ -37,9 +37,9 @@ void BGManager_Init()
 	//Set Text Tiles
 	shortCopy(((u16*)BG_TILE_TEXT), (u16*)TEXT_TILES, (59 * 16));  
 	//Set Background Tiles
-	shortCopy(((u16*)(BG_TILE_GAME + 32)), (u16*)BG_Bitmap, (12 * 16)); 
+	shortCopy(((u16*)(BG_TILE_GAME + 32)), (u16*)BG_TILES, (12 * 16)); 
 	//set background palette  
-	shortCopy((u16*)BG_PAL_DATA, (u16*)TEXT_BG_PALETTE, 256);
+	shortCopy((u16*)BG_PAL_DATA, (u16*)BG_PALETTE, 256);
 
 
 	//Set Up Text Layer

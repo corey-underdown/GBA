@@ -34,7 +34,7 @@ void GOFactory_Init()
 	//create palette
 	shortCopy((u16*)SPRITE_PAL_DATA, (u16*)GO_PALETTE, 256);
 	//Copy Sprites
-	shortCopy((u16*)SPRITE_BITMAPS, (u16*)GO_TILES, 80);
+	shortCopy((u16*)SPRITE_BITMAPS, (u16*)GO_TILES, 16 * 8);
 
 	int i = 0;
 
@@ -107,7 +107,7 @@ GameObject* GOFactory_New(int enum_type, int posX, int posY, int enum_dir, float
 			{
 			g_GOFactory.GOList[i].sprite->shape = 0;//0 = Square, 1 = Wide, 2 = Tall
 			g_GOFactory.GOList[i].sprite->spcRotation = 0;//DEpending on prvious values this will change.
-			g_GOFactory.GOList[i].sprite->size = 4;//0, 1, 2 ,3 ,4  0 = 8 pixels, 1 = 16 pixels, 2 = 32 pixels, 3 = 64 pixels depending on the sprite size
+			g_GOFactory.GOList[i].sprite->size = 1;//0, 1, 2 ,3 ,4  0 = 8 pixels, 1 = 16 pixels, 2 = 32 pixels, 3 = 64 pixels depending on the sprite size
 			g_GOFactory.GOList[i].sprite->tileIndex = 0;//first tile in tile array.
 			g_GOFactory.GOList[i].sprite->pallet = 3;
 			g_GOFactory.GOList[i].Update = &GO_Update_Frogger;
@@ -116,7 +116,7 @@ GameObject* GOFactory_New(int enum_type, int posX, int posY, int enum_dir, float
 			{
 			g_GOFactory.GOList[i].sprite->shape = 0;//0 = Square, 1 = Wide, 2 = Tall
 			g_GOFactory.GOList[i].sprite->spcRotation = 0;//DEpending on prvious values this will change.
-			g_GOFactory.GOList[i].sprite->size = 4;//0, 1, 2 ,3 ,4  0 = 8 pixels, 1 = 16 pixels, 2 = 32 pixels, 3 = 64 pixels depending on the sprite size
+			g_GOFactory.GOList[i].sprite->size = 1;//0, 1, 2 ,3 ,4  0 = 8 pixels, 1 = 16 pixels, 2 = 32 pixels, 3 = 64 pixels depending on the sprite size
 			g_GOFactory.GOList[i].sprite->tileIndex = 4;//first tile in tile array.
 			g_GOFactory.GOList[i].sprite->pallet = 0;
 			g_GOFactory.GOList[i].Update = &GO_Update_RacingCar;
@@ -126,7 +126,7 @@ GameObject* GOFactory_New(int enum_type, int posX, int posY, int enum_dir, float
 			g_GOFactory.GOList[i].sprite->shape = 0;//Square or Rect
 			g_GOFactory.GOList[i].sprite->spcRotation = 0;//DEpending on prvious values this will change.
 			g_GOFactory.GOList[i].sprite->size = 0;//0, 1, 2 ,3 ,4  0 = 8 pixels, 1 = 16 pixels, 2 = 32 pixels, 3 = 64 pixels depending on the sprite size
-			g_GOFactory.GOList[i].sprite->tileIndex = 4;//first tile in tile array.
+			g_GOFactory.GOList[i].sprite->tileIndex = 0;//first tile in tile array.
 			g_GOFactory.GOList[i].sprite->pallet = 0;
 			}
 

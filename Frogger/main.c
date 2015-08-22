@@ -32,7 +32,7 @@ int main()
 	///  #### ##    ## ####    ##    #### ##     ## ######## ####  ######  ########   /// 
 	/////////////////////////////////////////////////////////////////////////////////////
 	//Backgrounds
-	REG_DISPCNT = 0x0000;//Needed to initialise stuff.
+	REG_DISPCNT = 0x0000 | (1<<6);//Needed to initialise stuff.
 	BGManager_SetLayers(1,1,0,0);
 	BGManager_Init(); 
 

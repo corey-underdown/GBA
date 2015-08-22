@@ -25,7 +25,7 @@ void GO_Update_Frogger(int num)
 			this->sprite->y -= 16;
 		else
 		{
-			//BGManager_ShiftUp(SQR_Brick);
+			ZManager_ShiftUp();
 			GOFactory_ShiftGOsDown();
 		}
 	}	

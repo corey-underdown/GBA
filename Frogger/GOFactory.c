@@ -310,7 +310,7 @@ void GOFactory_ShiftGOsDown()
 			if(g_GOFactory.GOList[i].type != ENUM_GOTYPE_FROGGER)
 			{
 				g_GOFactory.GOList[i].sprite->y += 16;
-				if(g_GOFactory.GOList[i].sprite->y >= 164)
+				if(g_GOFactory.GOList[i].sprite->y >= 164 && g_GOFactory.GOList[i].sprite->y <= 180)
 					GOFactory_Delete(&g_GOFactory.GOList[i]);
 			}
 		}

@@ -8,7 +8,6 @@ void GO_Update_Default(int this)
 
 }
 
-
 void GO_Update_Frogger(int num)
 {
 	GameObject* this = &g_GOFactory.GOList[num];

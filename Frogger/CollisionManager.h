@@ -8,5 +8,6 @@ int abs(int value);
 void DetectCollision(GameObject* frogger);
 void ManagerCollision(GameObject* frogger, GameObject* collision);
 void DetectCollisionTiles(GameObject* frogger);
+int DetermineBounding(int size);
 
 #endif

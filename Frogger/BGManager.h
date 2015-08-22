@@ -3,25 +3,6 @@
 
 #include "toolbox.h"
 
-const unsigned int InitMap[] = {
-	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-	2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-	2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-	2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-	2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-	2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-};
-
 typedef struct 
 {
 	unsigned short tile:10;
@@ -45,20 +26,12 @@ typedef struct
 
 typedef TileData Square[4];
 
-Square SQR_Brick = {
-	{1,0,0,0}, {2,0,0,0},
-	{3,0,0,0}, {4,0,0,0}
-};
-
-Square SQR_Road = {
-	{5,0,0,0}, {6,0,0,0},
-	{7,0,0,0}, {8,0,0,0}
-};
-
-Square SQR_Water = {
-	{9,0,0,0}, {10,0,0,0},
-	{11,0,0,0}, {12,0,0,0}
-};
+typedef struct
+{
+	Square brick;
+	Square road;
+	Square water;
+} GameSquares;
 
 typedef struct
 {
@@ -66,7 +39,18 @@ typedef struct
 	TileData ghost_VRAM[32 * 32];//Squares
 } BackgroundManager;
 
+typedef struct 
+{
+	int rowsRemain;
+	Square curZone;
+}ZONEManager;
+
+
 extern BackgroundManager g_BGManager;
+
+extern ZONEManager g_ZManager;
+
+extern GameSquares g_gameSquares;
 
 void BGManager_SetLayers(BOOL zero, BOOL one, BOOL two, BOOL three);
 
@@ -85,6 +69,9 @@ void BGManager_InitMap( int map[32 * 32]);
 //void BGManager_SetRow(u16* newRow, int rowNum);
 
 void BGManager_CopyVRAM();
+
+
+void ZManager_ShiftUp();
 
 
 #endif

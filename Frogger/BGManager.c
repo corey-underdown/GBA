@@ -5,10 +5,11 @@
 #include <stdio.h>
 
 
-
-
 BackgroundManager g_BGManager;
 
+ZONEManager g_ZManager;
+
+GameSquares g_gameSquares;
 
 void BGManager_SetLayers(BOOL zero, BOOL one, BOOL two, BOOL three)
 {
@@ -46,6 +47,24 @@ void BGManager_Init()
 
 
 
+	Square SQR_Brick = {
+		{1,0,0,0}, {2,0,0,0},
+		{3,0,0,0}, {4,0,0,0}
+	};
+
+	Square SQR_Road = {
+		{5,0,0,0}, {6,0,0,0},
+		{7,0,0,0}, {8,0,0,0}
+	};
+
+	Square SQR_Water = {
+		{9,0,0,0}, {10,0,0,0},
+		{11,0,0,0}, {12,0,0,0}
+	};
+	shortCopy(((u16*)(g_gameSquares.brick)), (u16*)SQR_Brick, (4)); 
+	shortCopy(((u16*)(g_gameSquares.road)), (u16*)SQR_Road, (4)); 
+	shortCopy(((u16*)(g_gameSquares.water)), (u16*)SQR_Water, (4)); 
+
 	//Set Up Text Layer
 	MapProperties mp0;
 	mp0.priority = 0;
@@ -73,18 +92,18 @@ void BGManager_Init()
 	shortCopy((u16*)BG_MAP_PROP_1, (u16*)&mp1, 1);
 
 
-	BGManager_SetRow(0, SQR_Water);
-	BGManager_SetRow(1, SQR_Water);
-	BGManager_SetRow(2, SQR_Water);
-	BGManager_SetRow(3, SQR_Water);
-	BGManager_SetRow(4, SQR_Brick);
-	BGManager_SetRow(5, SQR_Road);
-	BGManager_SetRow(6, SQR_Road);
-	BGManager_SetRow(7, SQR_Road);
-	BGManager_SetRow(8, SQR_Road);
-	BGManager_SetRow(9, SQR_Brick);
+	BGManager_SetRow(0, g_gameSquares.water);
+	BGManager_SetRow(1, g_gameSquares.water);
+	BGManager_SetRow(2, g_gameSquares.water);
+	BGManager_SetRow(3, g_gameSquares.water);
+	BGManager_SetRow(4, g_gameSquares.brick);
+	BGManager_SetRow(5, g_gameSquares.road);
+	BGManager_SetRow(6, g_gameSquares.road);
+	BGManager_SetRow(7, g_gameSquares.road);
+	BGManager_SetRow(8, g_gameSquares.road);
+	BGManager_SetRow(9, g_gameSquares.brick);
 
-	BGManager_ShiftUp(SQR_Brick);
+	//BGManager_ShiftUp(SQR_Brick);
 }
 
 void BGManager_SetSquare(int x, int y, Square sqr)
@@ -102,7 +121,6 @@ void BGManager_SetRow (int y, Square sqr)
 	for (i = 0; i < 16; i ++)
 	{
 		BGManager_SetSquare(i,y,sqr);
-
 	}
 }
 
@@ -123,3 +141,40 @@ void BGManager_CopyVRAM()
 {
 	shortCopy ((u16*)BG_MAP_1, ((u16*)&(g_BGManager.ghost_VRAM[0])), (sizeof(TileData) * 16 * 32));
 }
+
+void ZManager_ShiftUp()
+ {
+ 	if (g_ZManager.rowsRemain <= 0)
+ 	{
+ 		g_ZManager.rowsRemain = RandomRange(3,7);
+
+ 		int randZone = RandomRange(0,2);
+
+ 		PrintTextInt(randZone);
+
+ 		if (randZone == 0)
+ 		{
+ 			shortCopy(((u16*)(g_ZManager.curZone)), (u16*)g_gameSquares.road, (4)); 
+			// g_ZManager.curZone[0] = SQR_Road[0];
+			// g_ZManager.curZone[1] = SQR_Road[1];
+			// g_ZManager.curZone[2] = SQR_Road[2];
+			// g_ZManager.curZone[3] = SQR_Road[3];
+ 		}
+ 		else if (randZone == 1)
+ 		{
+ 			shortCopy(((u16*)(g_ZManager.curZone)), (u16*)g_gameSquares.water, (4)); 
+			// g_ZManager.curZone[0] = SQR_Water[0];
+			// g_ZManager.curZone[1] = SQR_Water[1];
+			// g_ZManager.curZone[2] = SQR_Water[2];
+			// g_ZManager.curZone[3] = SQR_Water[3];
+ 		}
+
+ 		BGManager_ShiftUp(g_gameSquares.brick);
+ 	}
+ 	else
+ 	{
+ 		BGManager_ShiftUp(g_ZManager.curZone);
+		g_ZManager.rowsRemain --;
+ 	}
+
+ }

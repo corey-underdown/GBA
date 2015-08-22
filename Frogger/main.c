@@ -4,6 +4,7 @@
 #include "TextManager.h"
 #include "CollisionManager.h"
 #include "GOUpdates.h"
+#include "BGManager.h"
 //#include "images/Text_Tiles.h"
 
 
@@ -105,6 +106,7 @@ int main()
 		///////////////////////////////////////////////////////////////////////////
 		waitVBlank();
 		GOFactory_CopytoOAM();
+		BGManager_CopyVRAM();
 		waitVDraw();
 	}
 

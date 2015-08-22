@@ -21,7 +21,18 @@ void DetectCollision(GameObject* frogger){
 }
 
 void ManagerCollision(GameObject* frogger, GameObject* collision){
-
+	switch(collision->type)
+	{
+		case ENUM_GOTYPE_TURTLE_SAFE:
+			if(collision->enum_dir == ENUM_DIR_LEFT)
+				frogger->sprite->x += collision->speed;
+			else
+				frogger->sprite->x -= collision->speed;
+		break;
+		case ENUM_GOTYPE_TURTLE_TEMP:	
+			DetectCollisionTiles(frogger);
+		break;
+	}
 }
 
 void DetectCollisionTiles(GameObject* frogger){

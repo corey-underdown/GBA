@@ -2,6 +2,7 @@
 #include "images/GO_Palette.h"
 #include "images/GO_Tiles.h"
 #include "GOUpdates.h"
+#include "TextManager.h"
 
 
 GOFactory g_GOFactory;
@@ -15,7 +16,7 @@ void GOFactory_ToggleSpritesIsActive(BOOL toggle)
 
 	temp = temp | (toggle << 12);
 
-	REG_DISPCNT = temp;
+	REG_DISPCNT = temp;  
 }
 
 BOOL GOFactory_GetSpritesIsActive()
@@ -34,7 +35,7 @@ void GOFactory_Init()
 	//create palette
 	shortCopy((u16*)SPRITE_PAL_DATA, (u16*)GO_PALETTE, 256);
 	//Copy Sprites
-	shortCopy((u16*)SPRITE_BITMAPS, (u16*)GO_TILES, 16 * 8);
+	shortCopy((u16*)SPRITE_BITMAPS, (u16*)GO_TILES, 16 * 44);
 
 	int i = 0;
 
@@ -84,8 +85,10 @@ GameObject* GOFactory_New(int enum_type, int posX, int posY, int enum_dir, int s
 			g_GOFactory.GOList[i].Update = &GO_Update_Default;
 			//Set the facing Dir
 			g_GOFactory.GOList[i].enum_dir = enum_dir;
-			//Set the gameobject type
-			g_GOFactory.GOList[i].type = enum_type;
+			//Set the gameobject type 
+			g_GOFactory.GOList[i].type = enum_type; 
+			g_GOFactory.GOList[i].counter = 0;
+			g_GOFactory.GOList[i].timer = 120;
 			//Set all default Properties
 			g_GOFactory.GOList[i].sprite->y = posY;//Set Init Position
 			g_GOFactory.GOList[i].sprite->enableRotation = 0;//Do not allow rotation
@@ -124,6 +127,24 @@ GameObject* GOFactory_New(int enum_type, int posX, int posY, int enum_dir, int s
 			g_GOFactory.GOList[i].sprite->tileIndex = 4;//first tile in tile array.
 			g_GOFactory.GOList[i].sprite->pallet = 0;
 			g_GOFactory.GOList[i].Update = &GO_Update_RacingCar;
+			}
+			else if (enum_type == ENUM_GOTYPE_TURTLE_SAFE)
+			{
+			//Extra checks because corey can't draw sprites the right way
+			//Set Flip to direction of type.
+			if (enum_dir == ENUM_DIR_LEFT)
+				g_GOFactory.GOList[i].sprite->horzFlip = 1;//IF enabelRotation = 1, Do not set this value
+			else if (enum_dir == ENUM_DIR_RIGHT)
+				g_GOFactory.GOList[i].sprite->horzFlip = 0;//IF enabelRotation = 1, Do not set this value
+			g_GOFactory.GOList[i].speed = 1;
+			g_GOFactory.GOList[i].sprite->shape = 0;//0 = Square, 1 = Wide, 2 = Tall
+			g_GOFactory.GOList[i].sprite->spcRotation = 0;//DEpending on prvious values this will change.
+			g_GOFactory.GOList[i].sprite->size = 1;//0, 1, 2 ,3 ,4  0 = 8 pixels, 1 = 16 pixels, 2 = 32 pixels, 3 = 64 pixels depending on the sprite size
+			g_GOFactory.GOList[i].sprite->tileIndex = 32;//first tile in tile array.
+			g_GOFactory.GOList[i].sprite->pallet = 0;
+			//g_GOFactory.GOList[i].counter = 0;
+			//g_GOFactory.GOList[i].timer = 120;
+			g_GOFactory.GOList[i].Update = &GO_Update_Turtle;
 			}
 			else 
 			{
@@ -219,7 +240,7 @@ void GOFactory_Sort()
 			}
 			else if (g_GOFactory.indexList[i + 1] == 200)
 			{
-				//Do Nothing
+				//Do Nothing 
 			}
 			else if (g_GOFactory.GOList[g_GOFactory.indexList[i]].z_Depth > g_GOFactory.GOList[g_GOFactory.indexList[i + 1]].z_Depth)
 			{

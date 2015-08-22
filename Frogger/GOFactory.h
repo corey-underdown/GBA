@@ -40,6 +40,8 @@ typedef struct
 	float z_Depth;
 	float speed;
 	int enum_dir;
+	int counter;
+	int timer;
 	GO_Update Update;
 }GameObject;
 

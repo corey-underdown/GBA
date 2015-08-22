@@ -56,7 +56,7 @@ int main()
 	GameObject* player = GOFactory_New(ENUM_GOTYPE_FROGGER, 112, 144,ENUM_DIR_LEFT, 20);
 
 
-	GameObject* raceCar1 = GOFactory_New(ENUM_GOTYPE_CAR_RACE, 100, 100, ENUM_DIR_LEFT, 20);
+	GameObject* raceCar1 = GOFactory_New(ENUM_GOTYPE_CAR_RACE, 100, 100, ENUM_DIR_RIGHT, 20);
 	raceCar1->z_Depth = 1;
 	
 	///////////////////////////////////////////////////////////////////////////////
@@ -92,7 +92,7 @@ int main()
 		PollKeys();
 
 		//Update Game Objects
-		GOFactory_Update(0.2);
+		GOFactory_Update();
 
 		///////////////////////////////////////////////////////////////////////////
 		///  ##     ##         ########  ##          ###    ##    ## ##    ##   ///  

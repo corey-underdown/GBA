@@ -54,17 +54,16 @@ void GOFactory_Init()
 
 }
 
-void GOFactory_Update(float dt)
+void GOFactory_Update()
 {
 	int i = 0;
 	for (i = 0; i < 128; i ++)
 	{
-		g_GOFactory.GOList[i].Update(i, dt);
-
+		g_GOFactory.GOList[i].Update(i);
 	}
 }
 
-GameObject* GOFactory_New(int enum_type, int posX, int posY, int enum_dir, float speed)
+GameObject* GOFactory_New(int enum_type, int posX, int posY, int enum_dir, int speed)
 {
 	int i = 0;
 	//Find First Available GameObject Spot
@@ -85,6 +84,8 @@ GameObject* GOFactory_New(int enum_type, int posX, int posY, int enum_dir, float
 			g_GOFactory.GOList[i].Update = &GO_Update_Default;
 			//Set the facing Dir
 			g_GOFactory.GOList[i].enum_dir = enum_dir;
+			//Set the gameobject type
+			g_GOFactory.GOList[i].type = enum_type;
 			//Set all default Properties
 			g_GOFactory.GOList[i].sprite->y = posY;//Set Init Position
 			g_GOFactory.GOList[i].sprite->enableRotation = 0;//Do not allow rotation
@@ -116,6 +117,7 @@ GameObject* GOFactory_New(int enum_type, int posX, int posY, int enum_dir, float
 			}
 			else if (enum_type == ENUM_GOTYPE_CAR_RACE)
 			{
+			g_GOFactory.GOList[i].speed = 3;
 			g_GOFactory.GOList[i].sprite->shape = 0;//0 = Square, 1 = Wide, 2 = Tall
 			g_GOFactory.GOList[i].sprite->spcRotation = 0;//DEpending on prvious values this will change.
 			g_GOFactory.GOList[i].sprite->size = 1;//0, 1, 2 ,3 ,4  0 = 8 pixels, 1 = 16 pixels, 2 = 32 pixels, 3 = 64 pixels depending on the sprite size
@@ -228,4 +230,22 @@ void GOFactory_Sort()
 		}
 	}
 }
+
+void GOFactory_ShiftGOsDown()
+{
+	int i;
+	for (i = 0; i < 128; i++)
+	{
+		if (g_GOFactory.GOList[i].alive == TRUE)
+		{
+			if(g_GOFactory.GOList[i].type != ENUM_GOTYPE_FROGGER)
+			{
+				g_GOFactory.GOList[i].sprite->y += 16;
+				if(g_GOFactory.GOList[i].sprite->y >= 164)
+					GOFactory_Delete(&g_GOFactory.GOList[i]);
+			}
+		}
+	}
+}
+
 

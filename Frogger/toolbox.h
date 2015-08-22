@@ -8,6 +8,9 @@
 
 #ifndef TOOLBOX_H
 #define TOOLBOX_H
+#include <stdlib.h>
+
+
 
 // === (from tonc_types.h) ============================================
 
@@ -137,6 +140,11 @@ INLINE void shortCopy(volatile u16 *dest, u16 *src, int shortCount)
 	{
 		*dest++ = *src++;
 	}
+}
+
+INLINE int RandomRange(int min, int max)
+{
+	return  min + (rand() % (max - min));
 }
 
 #endif // TOOLBOX_H

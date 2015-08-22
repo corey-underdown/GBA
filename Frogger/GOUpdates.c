@@ -24,7 +24,10 @@ void GO_Update_Frogger(int num)
 		if(this->sprite->y > 80)
 			this->sprite->y -= 16;
 		else
+		{
+			//BGManager_ShiftUp(SQR_Brick);
 			GOFactory_ShiftGOsDown();
+		}
 	}	
 	if(isKeyDown(KEY_DOWN))
 		this->sprite->y += 16;
@@ -72,19 +75,5 @@ void GO_Update_Turtle(int num)
 		this->counter = 0;
 	}
 
-	if(this->enum_dir == ENUM_DIR_LEFT)
-	{
-		this->sprite->x += this->speed;
-		if(this->sprite->x >= SCREEN_WIDTH + 16 && this->sprite->x <= SCREEN_WIDTH + 32)
-			this->sprite->x = 504;
-	}
-	else
-	{
-		this->sprite->x -= this->speed;
-		if(this->sprite->x == 0) this->sprite->x--;
-		if(this->sprite->x >= 500 && this->sprite->x <= 508)
-		{
-			this->sprite->x = SCREEN_WIDTH + 8;
-		}
-	}
+	GO_Update_RacingCar(num);
 }

@@ -128,6 +128,54 @@ GameObject* GOFactory_New(int enum_type, int posX, int posY, int enum_dir, int s
 			g_GOFactory.GOList[i].sprite->pallet = 0;
 			g_GOFactory.GOList[i].Update = &GO_Update_RacingCar;
 			}
+			else if(enum_type == ENUM_GOTYPE_LOG_SMALL)
+			{
+			//Extra checks because corey can't draw sprites the right way
+			//Set Flip to direction of type.
+			if (enum_dir == ENUM_DIR_LEFT)
+				g_GOFactory.GOList[i].sprite->horzFlip = 1;//IF enabelRotation = 1, Do not set this value
+			else if (enum_dir == ENUM_DIR_RIGHT)
+				g_GOFactory.GOList[i].sprite->horzFlip = 0;//IF enabelRotation = 1, Do not set this value
+			g_GOFactory.GOList[i].speed = 1;
+			g_GOFactory.GOList[i].sprite->shape = 0;//0 = Square, 1 = Wide, 2 = Tall
+			g_GOFactory.GOList[i].sprite->spcRotation = 0;//DEpending on prvious values this will change.
+			g_GOFactory.GOList[i].sprite->size = 1;//0, 1, 2 ,3 ,4  0 = 8 pixels, 1 = 16 pixels, 2 = 32 pixels, 3 = 64 pixels depending on the sprite size
+			g_GOFactory.GOList[i].sprite->tileIndex = 8;//first tile in tile array.
+			g_GOFactory.GOList[i].sprite->pallet = 0;
+			g_GOFactory.GOList[i].Update = &GO_Update_RacingCar;
+			}
+			else if(enum_type == ENUM_GOTYPE_LOG_MED)
+			{
+			//Extra checks because corey can't draw sprites the right way
+			//Set Flip to direction of type.
+			if (enum_dir == ENUM_DIR_LEFT)
+				g_GOFactory.GOList[i].sprite->horzFlip = 1;//IF enabelRotation = 1, Do not set this value
+			else if (enum_dir == ENUM_DIR_RIGHT)
+				g_GOFactory.GOList[i].sprite->horzFlip = 0;//IF enabelRotation = 1, Do not set this value
+			g_GOFactory.GOList[i].speed = 1;
+			g_GOFactory.GOList[i].sprite->shape = 1;//0 = Square, 1 = Wide, 2 = Tall
+			g_GOFactory.GOList[i].sprite->spcRotation = 0;//DEpending on prvious values this will change.
+			g_GOFactory.GOList[i].sprite->size = 2;//0, 1, 2 ,3 ,4  0 = 8 pixels, 1 = 16 pixels, 2 = 32 pixels, 3 = 64 pixels depending on the sprite size
+			g_GOFactory.GOList[i].sprite->tileIndex = 12;//first tile in tile array.
+			g_GOFactory.GOList[i].sprite->pallet = 0;
+			g_GOFactory.GOList[i].Update = &GO_Update_RacingCar;
+			}
+			else if(enum_type == ENUM_GOTYPE_LOG_LARGE)
+			{
+			//Extra checks because corey can't draw sprites the right way
+			//Set Flip to direction of type.
+			if (enum_dir == ENUM_DIR_LEFT)
+				g_GOFactory.GOList[i].sprite->horzFlip = 1;//IF enabelRotation = 1, Do not set this value
+			else if (enum_dir == ENUM_DIR_RIGHT)
+				g_GOFactory.GOList[i].sprite->horzFlip = 0;//IF enabelRotation = 1, Do not set this value
+			g_GOFactory.GOList[i].speed = 1;
+			g_GOFactory.GOList[i].sprite->shape = 1;//0 = Square, 1 = Wide, 2 = Tall
+			g_GOFactory.GOList[i].sprite->spcRotation = 0;//DEpending on prvious values this will change.
+			g_GOFactory.GOList[i].sprite->size = 2;//0, 1, 2 ,3 ,4  0 = 8 pixels, 1 = 16 pixels, 2 = 32 pixels, 3 = 64 pixels depending on the sprite size
+			g_GOFactory.GOList[i].sprite->tileIndex = 20;//first tile in tile array.
+			g_GOFactory.GOList[i].sprite->pallet = 0;
+			g_GOFactory.GOList[i].Update = &GO_Update_RacingCar;
+			}
 			else if (enum_type == ENUM_GOTYPE_TURTLE_SAFE)
 			{
 			//Extra checks because corey can't draw sprites the right way

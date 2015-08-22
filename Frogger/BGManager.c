@@ -1,5 +1,6 @@
 #include "BGManager.h"
 #include "Images/BGTiles.h"
+#include "Images/BG_Pallet.h"
 #include "images/Text_Tiles.h"
 #include <stdio.h>
 

@@ -1,6 +1,6 @@
 #include "GOUpdates.h"
 #include "GOFactory.h"
-
+#include "Input.h"
 
 void GO_Update_Default(int this, float dt)
 {

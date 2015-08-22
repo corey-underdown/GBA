@@ -150,7 +150,7 @@ namespace ImageToGBAHeader
 			int green = col.G;
 			int blue = col.B;
 
-			int hex = (((31 * (red + 4)) / 255) << 11) | (((63 * (green + 2)) / 255) << 5) | ((31 * (blue + 4)) / 255);
+			int hex = (((31 * (blue + 4)) / 255) << 10) | (((31 * (green + 2)) / 255) << 5) | ((31 * (red + 4)) / 255);
 
 			return String.Format("0x{0:X4}", hex);
 		}

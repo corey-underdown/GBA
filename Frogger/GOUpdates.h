@@ -11,5 +11,7 @@ void GO_Update_Frogger(int this);
 
 void GO_Update_RacingCar(int this);
 
+void GO_Update_Turtle(int this);
+
 
 #endif

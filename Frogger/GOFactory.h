@@ -29,7 +29,7 @@ typedef struct
 
 //typedef struct go GameObject;
 
-typedef void (*GO_Update)(int, float);
+typedef void (*GO_Update)(int);
 
 typedef struct 
 {
@@ -56,13 +56,13 @@ extern GOFactory g_GOFactory;
 
 void GOFactory_Init();
 
-void GOFactory_Update(float dt);
+void GOFactory_Update();
 
 void GOFactory_ToggleSpritesIsActive(BOOL toggle);
 
 BOOL GOFactory_GetSpritesIsActive();
 
-GameObject* GOFactory_New(int enum_type, int posX, int posY, int enum_dir, float speed);//Default
+GameObject* GOFactory_New(int enum_type, int posX, int posY, int enum_dir, int speed);//Default
 
 void GOFactory_Delete(GameObject* gameobject);
 
@@ -71,5 +71,7 @@ void GOFactory_CopytoOAM();
 void GOFactory_Sort();
 
 void GOFactory_Swap(int i, int j);
+
+void GOFactory_ShiftGOsDown();
 
 #endif

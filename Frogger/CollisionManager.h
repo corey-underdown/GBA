@@ -4,10 +4,16 @@
 #include "GOFactory.h"
 #include "TextManager.h"
 
+typedef struct
+{
+	int x;
+	int y;
+}Bounds;
+
 int abs(int value);
 void DetectCollision(GameObject* frogger);
 void ManagerCollision(GameObject* frogger, GameObject* collision);
 void DetectCollisionTiles(GameObject* frogger);
-int DetermineBounding(int size);
+Bounds DetermineBounding(int shape, int size);
 
 #endif

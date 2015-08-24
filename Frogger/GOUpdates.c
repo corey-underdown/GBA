@@ -3,7 +3,7 @@
 #include "Input.h"
 #include "CollisionManager.h"
 
-void GO_Update_Default(int this)
+void GO_Update_Default(int num)
 {
 
 }
@@ -62,6 +62,7 @@ void GO_Update_RacingCar(int num)
 		//	this->sprite->x = SCREEN_WIDTH + 8;
 		//}
 	}
+	//GO_Wrap(num);
 }
 
 void GO_Update_Turtle(int num)
@@ -86,4 +87,20 @@ void GO_Update_Turtle(int num)
 	}
 
 	GO_Update_RacingCar(num);
+}
+
+void GO_Wrap(int num)
+{
+	GameObject* this = &g_GOFactory.GOList[num];
+
+	if (this->sprite->x < -10)
+	{
+		this->sprite->x += 230;
+	}
+	else if (this->sprite->x > 220)
+	{
+		this->sprite->x -= 230;
+	}
+
+
 }

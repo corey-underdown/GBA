@@ -12,9 +12,9 @@ ZONEManager g_ZManager;
 
 GameSquares g_gameSquares;
 
-int turtleArray[] = {0,16,64,96,128,192,208,224,304,320,368,384,432,464};
-int logArray[] = {0,48,128,224,320,384,464};
-int raceCarArray[] = {0,256};
+int turtleArray[] = {0,16,64,96,128,192,208,224};
+int logArray[] = {0,48,128,224};
+int raceCarArray[] = {0};
 
 void BGManager_SetLayers(BOOL zero, BOOL one, BOOL two, BOOL three)
 {
@@ -179,7 +179,7 @@ void ZManager_CreateGOLine(int gameZone, int y)
 		int i = 0;
 		for (i = 0; i < 2; i ++)
 		{
-			GOFactory_New(ENUM_GOTYPE_CAR_RACE, randOffset + logArray[i], y, direction, 3);
+			GOFactory_New(ENUM_GOTYPE_CAR_RACE, randOffset + raceCarArray[i], y, direction, 3);
 		}
 
 	}

@@ -5,13 +5,15 @@
 
 struct GameObject;
 
-void GO_Update_Default(int this);
+void GO_Update_Default(int num);
 
-void GO_Update_Frogger(int this);
+void GO_Update_Frogger(int num);
 
-void GO_Update_RacingCar(int this);
+void GO_Update_RacingCar(int num);
 
-void GO_Update_Turtle(int this);
+void GO_Update_Turtle(int num);
+
+void GO_Wrap(int num);
 
 
 #endif

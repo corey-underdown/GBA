@@ -17,5 +17,6 @@ void DetectCollision(GameObject* frogger);
 void ManagerCollision(GameObject* frogger, GameObject* collision);
 void DetectCollisionTiles(GameObject* frogger);
 Bounds DetermineBounding(int shape, int size);
+void CompleteDeath();
 
 #endif

@@ -4,6 +4,7 @@
 
 void DetectCollision(GameObject* frogger){
 	int i;
+	BOOL found = FALSE;
 	for(i = 0; i < 127; i++)
 	{
 		if(g_GOFactory.GOList[i].alive == TRUE && i != 0)
@@ -19,12 +20,15 @@ void DetectCollision(GameObject* frogger){
 			g_GOFactory.GOList[i].sprite->y + size1.y - offset > frogger->sprite->y + offset)
 			{
 				ManagerCollision(frogger, &g_GOFactory.GOList[i]);
+				if(g_GOFactory.GOList[i].type != ENUM_GOTYPE_FROGGER)
+					found = TRUE;
 				//return;
 			}
 		}
 	}
 
-	DetectCollisionTiles(frogger);
+	if(found == FALSE)
+		DetectCollisionTiles(frogger);
 }
 
 Bounds DetermineBounding(int shape, int size)
@@ -114,6 +118,12 @@ void ManagerCollision(GameObject* frogger, GameObject* collision){
 		break;
 		case ENUM_GOTYPE_TURTLE_TEMP:	
 			DetectCollisionTiles(frogger);
+		case ENUM_GOTYPE_CAR:
+		case ENUM_GOTYPE_TRUCK_TRAILER:
+		case ENUM_GOTYPE_TRUCK_CABIN:
+		case ENUM_GOTYPE_CROC:
+		case ENUM_GOTYPE_CAR_RACE:
+			CompleteDeath();
 		break;
 	}
 }
@@ -121,6 +131,7 @@ void ManagerCollision(GameObject* frogger, GameObject* collision){
 void DetectCollisionTiles(GameObject* frogger){
 	if(BGManager_GetTile(frogger->sprite->x, frogger->sprite->y) == ENUM_TILE_WATER){
 		//Dead  
+		CompleteDeath();
 	}
 	else
 	{
@@ -128,3 +139,18 @@ void DetectCollisionTiles(GameObject* frogger){
 		frogger->sprite->x -= frogger->sprite->x % 16;
 	}
 } 
+
+void CompleteDeath()
+{
+	for(int i = 0; i < 128; i++)
+	{
+		if(g_GOFactory.GOList[i].type != ENUM_GOTYPE_FROGGER)
+			GOFactory_Delete(&g_GOFactory.GOList[i]);
+		else
+		{
+			g_GOFactory.GOList[i].sprite->x = 112;
+			g_GOFactory.GOList[i].sprite->y = 144;
+		}
+	}
+	BGManager_Init();
+}

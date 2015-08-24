@@ -186,7 +186,7 @@ GameObject* GOFactory_New(int enum_type, int posX, int posY, int enum_dir, int s
 			g_GOFactory.GOList[i].sprite->spcRotation = 0;//DEpending on prvious values this will change.
 			g_GOFactory.GOList[i].sprite->size = 1;//0, 1, 2 ,3 ,4  0 = 8 pixels, 1 = 16 pixels, 2 = 32 pixels, 3 = 64 pixels depending on the sprite size
 			g_GOFactory.GOList[i].sprite->tileIndex = 32;//first tile in tile array.
-			g_GOFactory.GOList[i].sprite->pallet = 0;
+			g_GOFactory.GOList[i].sprite->pallet = 8;
 			//g_GOFactory.GOList[i].counter = 0;
 			//g_GOFactory.GOList[i].timer = 120;
 			g_GOFactory.GOList[i].Update = &GO_Update_Turtle;
@@ -197,7 +197,7 @@ GameObject* GOFactory_New(int enum_type, int posX, int posY, int enum_dir, int s
 			g_GOFactory.GOList[i].sprite->spcRotation = 0;//DEpending on prvious values this will change.
 			g_GOFactory.GOList[i].sprite->size = 0;//0, 1, 2 ,3 ,4  0 = 8 pixels, 1 = 16 pixels, 2 = 32 pixels, 3 = 64 pixels depending on the sprite size
 			g_GOFactory.GOList[i].sprite->tileIndex = 0;//first tile in tile array.
-			g_GOFactory.GOList[i].sprite->pallet = 0;
+			g_GOFactory.GOList[i].sprite->pallet = 8;
 			}
 
 

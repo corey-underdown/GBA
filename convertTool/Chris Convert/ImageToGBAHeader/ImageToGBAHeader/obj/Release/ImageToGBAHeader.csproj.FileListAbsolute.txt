@@ -7,3 +7,6 @@ C:\Users\Chris\Desktop\Uni\Trimester 5 2015\GBA DEV\Repo_GBA\convertTool\Chris C
 C:\Users\Chris\Desktop\Uni\Trimester 5 2015\GBA DEV\Repo_GBA\convertTool\Chris Convert\ImageToGBAHeader\ImageToGBAHeader\obj\Release\ImageToGBAHeader.csproj.GenerateResource.Cache
 C:\Users\Chris\Desktop\Uni\Trimester 5 2015\GBA DEV\Repo_GBA\convertTool\Chris Convert\ImageToGBAHeader\ImageToGBAHeader\obj\Release\ImageToGBAHeader.exe
 C:\Users\Chris\Desktop\Uni\Trimester 5 2015\GBA DEV\Repo_GBA\convertTool\Chris Convert\ImageToGBAHeader\ImageToGBAHeader\obj\Release\ImageToGBAHeader.pdb
+D:\Users\Corey\Downloads\devkitPro\GBA\convertTool\Chris Convert\ImageToGBAHeader\ImageToGBAHeader\bin\Release\ImageToGBAHeader.exe.config
+D:\Users\Corey\Downloads\devkitPro\GBA\convertTool\Chris Convert\ImageToGBAHeader\ImageToGBAHeader\obj\Release\ImageToGBAHeader.exe
+D:\Users\Corey\Downloads\devkitPro\GBA\convertTool\Chris Convert\ImageToGBAHeader\ImageToGBAHeader\obj\Release\ImageToGBAHeader.pdb

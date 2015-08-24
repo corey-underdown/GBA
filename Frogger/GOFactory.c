@@ -257,7 +257,6 @@ void GOFactory_Delete(GameObject* gameobject)
 		g_GOFactory.goCount -= 1;
 		//set game object to not alive, set z value to be 1000,
 		gameobject->alive = FALSE;
-		gameobject->sprite = 0;
 		//set index to be 200 
 		*(gameobject->index) = 200;
 		//Set sprite data to be not displayed 
@@ -275,13 +274,11 @@ void GOFactory_DeleteAll()
 	{
 		//set game object to not alive, set z value to be 1000,
 		g_GOFactory.GOList[i].alive = FALSE;
-		g_GOFactory.GOList[i].sprite = 0;
 		//set index to be 200 
 		*(g_GOFactory.GOList[i].index) = 200;
 		//Set sprite data to be not displayed 
 		g_GOFactory.GOList[i].sprite->y = 500;
 		g_GOFactory.GOList[i].sprite->tileIndex = 0;
-
 	}
 	g_GOFactory.goCount = 0;
 	GOFactory_Sort();

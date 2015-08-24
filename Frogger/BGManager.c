@@ -128,7 +128,7 @@ void BGManager_Init()
 	ZManager_CreateGOLine(0,112);
 	ZManager_CreateGOLine(0,128);
 
-
+	
 	//BGManager_ShiftUp(SQR_Brick);
 }
 

@@ -41,17 +41,17 @@ void GO_Update_RacingCar(int num)
 	if(this->enum_dir == ENUM_DIR_LEFT)
 	{
 		this->sprite->x += this->speed;
-		if(this->sprite->x >= SCREEN_WIDTH + 16 && this->sprite->x <= SCREEN_WIDTH + 32)
-			this->sprite->x = 504;
+		//if(this->sprite->x >= SCREEN_WIDTH + 16 && this->sprite->x <= SCREEN_WIDTH + 32)
+		//	this->sprite->x = 504;
 	}
 	else
 	{
 		this->sprite->x -= this->speed;
 		if(this->sprite->x == 0) this->sprite->x--;
-		if(this->sprite->x >= 500 && this->sprite->x <= 508)
-		{
-			this->sprite->x = SCREEN_WIDTH + 8;
-		}
+		//if(this->sprite->x >= 500 && this->sprite->x <= 508)
+		//{
+		//	this->sprite->x = SCREEN_WIDTH + 8;
+		//}
 	}
 }
 

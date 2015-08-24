@@ -143,7 +143,7 @@ void BGManager_CopyVRAM()
 	shortCopy ((u16*)BG_MAP_1, ((u16*)&(g_BGManager.ghost_VRAM[0])), (sizeof(TileData) * 16 * 32));
 }
 
-int turtleArray[] = {0,16,80,96,176,192};
+int turtleArray[] = {0,16,80,96,176,192,240,496};
 
 void ZManager_CreateGOLine(int gameZone, int y)
 {
@@ -216,7 +216,7 @@ void ZManager_ShiftUp()
 
  int BGManager_GetTile(int x, int y)
  { 	
- 	int convertX = (x/8) - ((x/8) % 2);
- 	int convertY = (y/8) - ((y/8) % 2);
+ 	int convertX = ((x - (x % 16)) / 8);
+ 	int convertY = ((y - (y % 16)) / 8);
  	return g_BGManager.ghost_VRAM[convertX + (convertY * 32)].tile;
  }

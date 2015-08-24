@@ -12,11 +12,11 @@ ZONEManager g_ZManager;
 
 GameSquares g_gameSquares;
 
-int turtleArray[] = {0,16,64,96,128,192,208,224,304,320,368,384,432,464};
-int logArray[] = {0,48,128,224,320,384,464};
+int turtleArray[] = {0,16,32,96,112,272,288,416,432};
+int logArray[] = {0,160,224,336,400};
 int raceCarArray[] = {0,256};
-int carArray[] = {0,256};
-int truckArray[] = {0,256};
+int carArray[] = {0,80,256};
+int truckArray[] = {0,160,336};
 
 void BGManager_SetLayers(BOOL zero, BOOL one, BOOL two, BOOL three)
 {
@@ -200,14 +200,15 @@ void ZManager_CreateGOLine(int gameZone, int y)
 			int i = 0;
 			for (i = 0; i < 2; i ++)
 			{
-				GOFactory_New(ENUM_GOTYPE_TRUCK_CABIN, randOffset + carArray[i], y, direction, 1);
-				if (direction = ENUM_DIR_RIGHT)
+				GOFactory_New(ENUM_GOTYPE_TRUCK_CABIN, randOffset + truckArray[i], y, direction, 1);
+				//GOFactory_New(ENUM_GOTYPE_TRUCK_TRAILER, randOffset + truckArray[i] -32, y, direction, 1);
+				if (direction == ENUM_DIR_LEFT)
 				{
-					GOFactory_New(ENUM_GOTYPE_TRUCK_TRAILER, randOffset + carArray[i] + 16, y, direction, 1);
+					GOFactory_New(ENUM_GOTYPE_TRUCK_TRAILER, randOffset + truckArray[i] - 32, y, direction, 1);
 				}
 				else
 				{
-					GOFactory_New(ENUM_GOTYPE_TRUCK_TRAILER, randOffset + truckArray[i] -32, y, direction, 1);
+					GOFactory_New(ENUM_GOTYPE_TRUCK_TRAILER, randOffset + truckArray[i] + 16, y, direction, 1);
 				}
 			}
 		}

@@ -200,7 +200,7 @@ void ZManager_CreateGOLine(int gameZone, int y)
 			int i = 0;
 			for (i = 0; i < 2; i ++)
 			{
-				//GOFactory_New(ENUM_GOTYPE_TRUCK_CABIN, randOffset + carArray[i], y, direction, 2);
+				GOFactory_New(ENUM_GOTYPE_TRUCK_CABIN, randOffset + carArray[i], y, direction, 1);
 				if (direction = ENUM_DIR_RIGHT)
 				{
 					GOFactory_New(ENUM_GOTYPE_TRUCK_TRAILER, randOffset + carArray[i] + 16, y, direction, 1);

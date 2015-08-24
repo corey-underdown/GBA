@@ -3,6 +3,8 @@
 
 #include "GOFactory.h"
 #include "TextManager.h"
+#include "BGManager.h"
+#include "toolbox.h"
 
 typedef struct
 {

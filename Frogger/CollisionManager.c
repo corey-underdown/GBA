@@ -143,6 +143,6 @@ void DetectCollisionTiles(GameObject* frogger){
 void CompleteDeath()
 {
 	GOFactory_DeleteAll();
-	GameObject* player = GOFactory_New(ENUM_GOTYPE_FROGGER, 112, 144,ENUM_DIR_LEFT, 20);
+	GOFactory_New(ENUM_GOTYPE_FROGGER, 112, 144,ENUM_DIR_LEFT, 20);
 	BGManager_Init();
 }

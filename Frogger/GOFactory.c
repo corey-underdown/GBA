@@ -277,8 +277,16 @@ void GOFactory_DeleteAll()
 		//set index to be 200 
 		*(g_GOFactory.GOList[i].index) = 200;
 		//Set sprite data to be not displayed 
-		g_GOFactory.GOList[i].sprite->y = 500;
+		g_GOFactory.GOList[i].sprite->y = 300;
+		g_GOFactory.GOList[i].sprite->x = 320;
 		g_GOFactory.GOList[i].sprite->tileIndex = 0;
+
+		g_GOFactory.GOList[i].z_Depth = 200;
+		g_GOFactory.GOList[i].speed = 0;
+		g_GOFactory.GOList[i].enum_dir = 0;
+		g_GOFactory.GOList[i].counter = 0;
+		g_GOFactory.GOList[i].timer = 0;
+		g_GOFactory.GOList[i].Update = &GO_Update_Default;
 	}
 	g_GOFactory.goCount = 0;
 	GOFactory_Sort();

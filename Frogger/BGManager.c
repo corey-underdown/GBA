@@ -143,6 +143,35 @@ void BGManager_CopyVRAM()
 	shortCopy ((u16*)BG_MAP_1, ((u16*)&(g_BGManager.ghost_VRAM[0])), (sizeof(TileData) * 16 * 32));
 }
 
+int turtleArray[] = {0,16,80,96,176,192};
+
+void ZManager_CreateGOLine(int gameZone, int y)
+{
+	int direction = ((g_BGManager.lineCreated % 2) + 2);//will be either 2 or 3. ENUM_DIR_LEFT or ENUM_DIR_RIGHT
+	int randOffset = RandomRange(10, SCREEN_WIDTH);
+	if (gameZone == 0)//Road
+	{
+
+
+	}
+	else if (gameZone == 1)//water
+	{
+		int randObject = RandomRange(0,2);
+		if (randObject == 0)//Spawn Turtles
+		{
+			int i = 0;
+			for (i = 0; i < (sizeof(turtleArray) / sizeof(int)); i ++)
+			{
+				GOFactory_New(ENUM_GOTYPE_TURTLE_SAFE, randOffset + turtleArray[i], y, ENUM_DIR_RIGHT, 20);
+			}
+		}
+
+	}
+
+	g_BGManager.lineCreated ++;
+}
+
+
 void ZManager_ShiftUp()
  {
  	if (g_ZManager.rowsRemain <= 0)
@@ -168,7 +197,8 @@ void ZManager_ShiftUp()
  			{
  				int randGO = RandomRange(0, 3);
  				if(randGO == 0)
- 					GOFactory_New(ENUM_GOTYPE_TURTLE_SAFE, RandomRange(10, SCREEN_WIDTH), -31 - (16 * i + 1), ENUM_DIR_RIGHT, 20);
+ 					//GOFactory_New(ENUM_GOTYPE_TURTLE_SAFE, RandomRange(10, SCREEN_WIDTH), -31 - (16 * i + 1), ENUM_DIR_RIGHT, 20);
+ 					ZManager_CreateGOLine(1, -31 - (16 * i + 1));
  				else if(randGO == 1)
  					GOFactory_New(ENUM_GOTYPE_LOG_MED, RandomRange(10, SCREEN_WIDTH), -31 - (16 * i + 1), ENUM_DIR_RIGHT, 20);
  			}

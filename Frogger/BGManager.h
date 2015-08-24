@@ -37,6 +37,7 @@ typedef struct
 {
 	MapProperties mapProperties[4];
 	TileData ghost_VRAM[32 * 32];//Squares
+	int lineCreated;
 } BackgroundManager;
 
 typedef struct 

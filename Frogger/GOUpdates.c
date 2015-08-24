@@ -15,9 +15,16 @@ void GO_Update_Frogger(int num)
 	DetectCollision(this);
 	
 	if(isKeyDown(KEY_RIGHT))
-		this->sprite->x += 16;
+	{
+		if(this->sprite->x <= 208)
+			this->sprite->x += 16;
+	}
 	if(isKeyDown(KEY_LEFT))
-		this->sprite->x -= 16;
+	{
+		if(this->sprite->x >= 16)
+			this->sprite->x -= 16;
+	}
+		
 	if(isKeyDown(KEY_UP))
 	{
 		if(this->sprite->y > 80)
@@ -29,9 +36,11 @@ void GO_Update_Frogger(int num)
 		}
 	}	
 	if(isKeyDown(KEY_DOWN))
-		this->sprite->y += 16;
+	{
+		if(this->sprite->y <= 128)
+			this->sprite->y += 16;
 
- 	PrintTextInt(BGManager_GetTile(this->sprite->x, this->sprite->y));
+	}
 }
 
 void GO_Update_RacingCar(int num)

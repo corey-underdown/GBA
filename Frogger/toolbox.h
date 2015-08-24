@@ -54,6 +54,11 @@ typedef u16 COLOR;
 #define ENUM_DIR_RIGHT	3
 #define ENUM_DIR_NONE	4
 
+#define ENUM_TILE_BRICK = 1;
+#define ENUM_TILE_ROAD = 5;
+#define ENUM_TILE_WATER = 9;
+
+
 #define BOOL 	u16
 #define TRUE 	1
 #define FALSE 	0

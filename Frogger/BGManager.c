@@ -159,10 +159,6 @@ void ZManager_ShiftUp()
  			{
  				GOFactory_New(ENUM_GOTYPE_CAR_RACE, RandomRange(10, SCREEN_WIDTH), -32 - (16 * i + 1), ENUM_DIR_RIGHT, 20);
  			}
-			// g_ZManager.curZone[0] = SQR_Road[0];
-			// g_ZManager.curZone[1] = SQR_Road[1];
-			// g_ZManager.curZone[2] = SQR_Road[2];
-			// g_ZManager.curZone[3] = SQR_Road[3];
  		}
  		else if (randZone == 1)
  		{
@@ -176,10 +172,6 @@ void ZManager_ShiftUp()
  				else if(randGO == 1)
  					GOFactory_New(ENUM_GOTYPE_LOG_MED, RandomRange(10, SCREEN_WIDTH), -31 - (16 * i + 1), ENUM_DIR_RIGHT, 20);
  			}
-			// g_ZManager.curZone[0] = SQR_Water[0];
-			// g_ZManager.curZone[1] = SQR_Water[1];
-			// g_ZManager.curZone[2] = SQR_Water[2];
-			// g_ZManager.curZone[3] = SQR_Water[3];
  		}
 
  		BGManager_ShiftUp(g_gameSquares.brick);
@@ -190,4 +182,11 @@ void ZManager_ShiftUp()
 		g_ZManager.rowsRemain --;
  	}
 
+ }
+
+ int BGManager_GetTile(int x, int y)
+ { 	
+ 	int convertX = (x/8) - ((x/8) % 2);
+ 	int convertY = (y/8) - ((y/8) % 2);
+ 	return g_BGManager.ghost_VRAM[convertX + (convertY * 32)].tile;
  }

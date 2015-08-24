@@ -66,7 +66,7 @@ void BGManager_Init();
 
 void BGManager_InitMap( int map[32 * 32]);
 
-//void BGManager_SetRow(u16* newRow, int rowNum);
+int BGManager_GetTile(int x, int y);
 
 void BGManager_CopyVRAM();
 

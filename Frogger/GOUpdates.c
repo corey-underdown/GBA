@@ -30,6 +30,8 @@ void GO_Update_Frogger(int num)
 	}	
 	if(isKeyDown(KEY_DOWN))
 		this->sprite->y += 16;
+
+ 	PrintTextInt(BGManager_GetTile(this->sprite->x, this->sprite->y));
 }
 
 void GO_Update_RacingCar(int num)

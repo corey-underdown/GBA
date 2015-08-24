@@ -35,7 +35,7 @@ void GOFactory_Init()
 	//create palette
 	shortCopy((u16*)SPRITE_PAL_DATA, (u16*)GO_PALETTE, 256);
 	//Copy Sprites
-	shortCopy((u16*)SPRITE_BITMAPS, (u16*)GO_TILES, 16 * 44);
+	shortCopy((u16*)SPRITE_BITMAPS, (u16*)GO_TILES, 16 * 64);
 
 	int i = 0;
 
@@ -129,6 +129,24 @@ GameObject* GOFactory_New(int enum_type, int posX, int posY, int enum_dir, int s
 			g_GOFactory.GOList[i].sprite->size = 1;//0, 1, 2 ,3 ,4  0 = 8 pixels, 1 = 16 pixels, 2 = 32 pixels, 3 = 64 pixels depending on the sprite size
 			g_GOFactory.GOList[i].sprite->tileIndex = 4;//first tile in tile array.
 			g_GOFactory.GOList[i].sprite->pallet = 0;
+			g_GOFactory.GOList[i].Update = &GO_Update_RacingCar;
+			}
+			else if (enum_type == ENUM_GOTYPE_CAR)
+			{
+			g_GOFactory.GOList[i].sprite->shape = 0;//0 = Square, 1 = Wide, 2 = Tall
+			g_GOFactory.GOList[i].sprite->spcRotation = 0;//DEpending on prvious values this will change.
+			g_GOFactory.GOList[i].sprite->size = 1;//0, 1, 2 ,3 ,4  0 = 8 pixels, 1 = 16 pixels, 2 = 32 pixels, 3 = 64 pixels depending on the sprite size
+			g_GOFactory.GOList[i].sprite->tileIndex = 48;//first tile in tile array.
+			g_GOFactory.GOList[i].sprite->pallet = 8;
+			g_GOFactory.GOList[i].Update = &GO_Update_RacingCar;
+			}
+			else if (enum_type == ENUM_GOTYPE_TRUCK)
+			{
+			g_GOFactory.GOList[i].sprite->shape = 1;//0 = Square, 1 = Wide, 2 = Tall
+			g_GOFactory.GOList[i].sprite->spcRotation = 0;//DEpending on prvious values this will change.
+			g_GOFactory.GOList[i].sprite->size = 2;//0, 1, 2 ,3 ,4  0 = 8 pixels, 1 = 16 pixels, 2 = 32 pixels, 3 = 64 pixels depending on the sprite size
+			g_GOFactory.GOList[i].sprite->tileIndex = 52;//first tile in tile array.
+			g_GOFactory.GOList[i].sprite->pallet = 8;
 			g_GOFactory.GOList[i].Update = &GO_Update_RacingCar;
 			}
 			else if(enum_type == ENUM_GOTYPE_LOG_SMALL)

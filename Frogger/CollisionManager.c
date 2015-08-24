@@ -142,15 +142,8 @@ void DetectCollisionTiles(GameObject* frogger){
 
 void CompleteDeath()
 {
-	for(int i = 0; i < 128; i++)
-	{
-		if(g_GOFactory.GOList[i].type != ENUM_GOTYPE_FROGGER)
-			GOFactory_Delete(&g_GOFactory.GOList[i]);
-		else
-		{
-			g_GOFactory.GOList[i].sprite->x = 112;
-			g_GOFactory.GOList[i].sprite->y = 144;
-		}
-	}
+	GOFactory_DeleteAll();
+
+	GameObject* player = GOFactory_New(ENUM_GOTYPE_FROGGER, 112, 144,ENUM_DIR_LEFT, 20);
 	BGManager_Init();
 }

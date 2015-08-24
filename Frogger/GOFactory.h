@@ -68,6 +68,8 @@ GameObject* GOFactory_New(int enum_type, int posX, int posY, int enum_dir, int s
 
 void GOFactory_Delete(GameObject* gameobject);
 
+void GOFactory_DeleteAll();
+
 void GOFactory_CopytoOAM();
 
 void GOFactory_Sort();

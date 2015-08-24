@@ -119,5 +119,12 @@ void ManagerCollision(GameObject* frogger, GameObject* collision){
 }
 
 void DetectCollisionTiles(GameObject* frogger){
-
+	if(BGManager_GetTile(frogger->sprite->x, frogger->sprite->y) == ENUM_TILE_WATER){
+		//Dead  
+	}
+	else
+	{
+		//snap frogger to tile on X coord. 
+		frogger->sprite->x -= frogger->sprite->x % 16;
+	}
 } 

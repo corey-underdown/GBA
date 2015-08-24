@@ -12,9 +12,11 @@ ZONEManager g_ZManager;
 
 GameSquares g_gameSquares;
 
-int turtleArray[] = {0,16,64,96,128,192,208,224};
-int logArray[] = {0,48,128,224};
-int raceCarArray[] = {0};
+int turtleArray[] = {0,16,64,96,128,192,208,224,304,320,368,384,432,464};
+int logArray[] = {0,48,128,224,320,384,464};
+int raceCarArray[] = {0,256};
+int carArray[] = {0,256};
+int truckArray[] = {0,256};
 
 void BGManager_SetLayers(BOOL zero, BOOL one, BOOL two, BOOL three)
 {
@@ -173,13 +175,41 @@ void BGManager_CopyVRAM()
 void ZManager_CreateGOLine(int gameZone, int y)
 {
 	int direction = ((g_BGManager.lineCreated % 2) + 2);//will be either 2 or 3. ENUM_DIR_LEFT or ENUM_DIR_RIGHT
-	int randOffset = RandomRange(10, SCREEN_WIDTH);
+	int randOffset = RandomRange(0, 256);
 	if (gameZone == 0)//Road
 	{
-		int i = 0;
-		for (i = 0; i < 2; i ++)
+		int randObject = RandomRange(0,3);
+		if (randObject == 0)//Spawn Race Car
 		{
-			GOFactory_New(ENUM_GOTYPE_CAR_RACE, randOffset + raceCarArray[i], y, direction, 3);
+			int i = 0;
+			for (i = 0; i < 2; i ++)
+			{
+				GOFactory_New(ENUM_GOTYPE_CAR_RACE, randOffset + raceCarArray[i], y, direction, 3);
+			}
+		}
+		if (randObject == 1)//Spawn Car
+		{
+			int i = 0;
+			for (i = 0; i < 2; i ++)
+			{
+				GOFactory_New(ENUM_GOTYPE_CAR, randOffset + carArray[i], y, direction, 2);
+			}
+		}
+		if (randObject == 2)//Spawn truck
+		{
+			int i = 0;
+			for (i = 0; i < 2; i ++)
+			{
+				//GOFactory_New(ENUM_GOTYPE_TRUCK_CABIN, randOffset + carArray[i], y, direction, 2);
+				if (direction = ENUM_DIR_RIGHT)
+				{
+					GOFactory_New(ENUM_GOTYPE_TRUCK_TRAILER, randOffset + carArray[i] + 16, y, direction, 1);
+				}
+				else
+				{
+					GOFactory_New(ENUM_GOTYPE_TRUCK_TRAILER, randOffset + truckArray[i] -32, y, direction, 1);
+				}
+			}
 		}
 
 	}
@@ -194,7 +224,7 @@ void ZManager_CreateGOLine(int gameZone, int y)
 				GOFactory_New(ENUM_GOTYPE_TURTLE_SAFE, randOffset + turtleArray[i], y, direction, 1);
 			}
 		}
-		if (randObject == 1)//Spawn Logs
+		else if (randObject == 1)//Spawn Logs
 		{
 			int i = 0;
 			for (i = 0; i < 7; i ++)

@@ -19,7 +19,7 @@ void DetectCollision(GameObject* frogger){
 			g_GOFactory.GOList[i].sprite->y + size1.y - offset > frogger->sprite->y + offset)
 			{
 				ManagerCollision(frogger, &g_GOFactory.GOList[i]);
-				return;
+				//return;
 			}
 		}
 	}

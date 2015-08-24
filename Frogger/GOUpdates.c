@@ -93,13 +93,31 @@ void GO_Wrap(int num)
 {
 	GameObject* this = &g_GOFactory.GOList[num];
 
-	if (this->sprite->x < -10)
+	unsigned int minWrap = -10;
+	unsigned int maxWrap = -10;
+
+	// if (this->enum_dir == ENUM_DIR_LEFT)
+	// {
+	// 	if (this->sprite->x < (480) &&  this->sprite->x > (400))
+	// 	{
+	// 		this->sprite->x = this->sprite->x - 180;
+	// 	}
+	// }
+	// 	if (this->enum_dir == ENUM_DIR_RIGHT)
+	// {
+	// 	if (this->sprite->x > 300 &&  this->sprite->x < (350))
+	// 	{
+	// 		this->sprite->x = this->sprite->x + 180;
+	// 	}
+	// }
+
+	if (this->sprite->x < (480) &&  this->sprite->x > (430))
 	{
-		this->sprite->x += 230;
+		this->sprite->x = this->sprite->x - 208;
 	}
-	else if (this->sprite->x > 220)
+	else if (this->sprite->x > (272) && this->sprite->x < 320)
 	{
-		this->sprite->x -= 230;
+		this->sprite->x = 208 + this->sprite->x;
 	}
 
 

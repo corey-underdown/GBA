@@ -48,7 +48,8 @@ typedef u16 COLOR;
 #define ENUM_GOTYPE_CROC			6
 #define ENUM_GOTYPE_CAR_RACE		7
 #define ENUM_GOTYPE_CAR 			8
-#define ENUM_GOTYPE_TRUCK			9
+#define ENUM_GOTYPE_TRUCK_TRAILER	9
+#define ENUM_GOTYPE_TRUCK_CABIN 	10
 
 #define ENUM_DIR_UP		0
 #define ENUM_DIR_DOWN	1

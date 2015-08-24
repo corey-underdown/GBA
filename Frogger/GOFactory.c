@@ -130,6 +130,7 @@ GameObject* GOFactory_New(int enum_type, int posX, int posY, int enum_dir, int s
 			g_GOFactory.GOList[i].sprite->tileIndex = 4;//first tile in tile array.
 			g_GOFactory.GOList[i].sprite->pallet = 0;
 			g_GOFactory.GOList[i].Update = &GO_Update_RacingCar;
+			g_GOFactory.GOList[i].sprite->horzFlip = !g_GOFactory.GOList[i].sprite->horzFlip;
 			}
 			else if (enum_type == ENUM_GOTYPE_CAR)
 			{
@@ -140,7 +141,7 @@ GameObject* GOFactory_New(int enum_type, int posX, int posY, int enum_dir, int s
 			g_GOFactory.GOList[i].sprite->pallet = 8;
 			g_GOFactory.GOList[i].Update = &GO_Update_RacingCar;
 			}
-			else if (enum_type == ENUM_GOTYPE_TRUCK)
+			else if (enum_type == ENUM_GOTYPE_TRUCK_TRAILER)
 			{
 			g_GOFactory.GOList[i].sprite->shape = 1;//0 = Square, 1 = Wide, 2 = Tall
 			g_GOFactory.GOList[i].sprite->spcRotation = 0;//DEpending on prvious values this will change.
@@ -148,6 +149,16 @@ GameObject* GOFactory_New(int enum_type, int posX, int posY, int enum_dir, int s
 			g_GOFactory.GOList[i].sprite->tileIndex = 52;//first tile in tile array.
 			g_GOFactory.GOList[i].sprite->pallet = 8;
 			g_GOFactory.GOList[i].Update = &GO_Update_RacingCar;
+			}
+			else if (enum_type == ENUM_GOTYPE_TRUCK_CABIN)
+			{
+			g_GOFactory.GOList[i].sprite->shape = 0;//0 = Square, 1 = Wide, 2 = Tall
+			g_GOFactory.GOList[i].sprite->spcRotation = 0;//DEpending on prvious values this will change.
+			g_GOFactory.GOList[i].sprite->size = 1;//0, 1, 2 ,3 ,4  0 = 8 pixels, 1 = 16 pixels, 2 = 32 pixels, 3 = 64 pixels depending on the sprite size
+			g_GOFactory.GOList[i].sprite->tileIndex = 58;//first tile in tile array.
+			g_GOFactory.GOList[i].sprite->pallet = 8;
+			g_GOFactory.GOList[i].Update = &GO_Update_RacingCar;
+			g_GOFactory.GOList[i].sprite->horzFlip = !g_GOFactory.GOList[i].sprite->horzFlip;
 			}
 			else if(enum_type == ENUM_GOTYPE_LOG_SMALL)
 			{

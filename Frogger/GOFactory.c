@@ -100,6 +100,7 @@ GameObject* GOFactory_New(int enum_type, int posX, int posY, int enum_dir, int s
 			g_GOFactory.GOList[i].sprite->priority = 1;//Allows 1 BG layer behind
 			g_GOFactory.GOList[i].sprite->rotation = 0;//actual rotation
 			g_GOFactory.GOList[i].sprite->vertFlip = 0;//IF enabelRotation = 1, Do not set this value
+			g_GOFactory.GOList[i].z_Depth = 10;
 
 			//Set Flip to direction of type.
 			if (enum_dir == ENUM_DIR_LEFT)
@@ -117,6 +118,7 @@ GameObject* GOFactory_New(int enum_type, int posX, int posY, int enum_dir, int s
 			g_GOFactory.GOList[i].sprite->tileIndex = 0;//first tile in tile array.
 			g_GOFactory.GOList[i].sprite->pallet = 3;
 			g_GOFactory.GOList[i].Update = &GO_Update_Frogger;
+			g_GOFactory.GOList[i].z_Depth = 0;
 			}
 			else if (enum_type == ENUM_GOTYPE_CAR_RACE)
 			{

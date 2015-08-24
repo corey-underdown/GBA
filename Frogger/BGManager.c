@@ -12,6 +12,10 @@ ZONEManager g_ZManager;
 
 GameSquares g_gameSquares;
 
+int turtleArray[] = {0,16,64,96,128,192,208,224,304,320,368,384,432,464};
+int logArray[] = {0,48,128,224,320,384,464};
+int raceCarArray[] = {0,256};
+
 void BGManager_SetLayers(BOOL zero, BOOL one, BOOL two, BOOL three)
 {
 	u16 temp = REG_DISPCNT;
@@ -92,7 +96,15 @@ void BGManager_Init()
 	shortCopy((u16*)BG_MAP_PROP_0, (u16*)&mp0, 1);
 	shortCopy((u16*)BG_MAP_PROP_1, (u16*)&mp1, 1);
 
-
+	// ZManager_ShiftUp();
+	// ZManager_ShiftUp();
+	// ZManager_ShiftUp();
+	// ZManager_ShiftUp();
+	// ZManager_ShiftUp();
+	// ZManager_ShiftUp();
+	// ZManager_ShiftUp();
+	// ZManager_ShiftUp();
+	// ZManager_ShiftUp();
 	BGManager_SetRow(0, g_gameSquares.water);
 	BGManager_SetRow(1, g_gameSquares.water);
 	BGManager_SetRow(2, g_gameSquares.water);
@@ -103,6 +115,17 @@ void BGManager_Init()
 	BGManager_SetRow(7, g_gameSquares.road);
 	BGManager_SetRow(8, g_gameSquares.road);
 	BGManager_SetRow(9, g_gameSquares.brick);
+
+	ZManager_CreateGOLine(1,0);
+	ZManager_CreateGOLine(1,16);
+	ZManager_CreateGOLine(1,32);
+	ZManager_CreateGOLine(1,48);
+
+	ZManager_CreateGOLine(0,80);
+	ZManager_CreateGOLine(0,96);
+	ZManager_CreateGOLine(0,112);
+	ZManager_CreateGOLine(0,128);
+
 
 	//BGManager_ShiftUp(SQR_Brick);
 }
@@ -143,15 +166,21 @@ void BGManager_CopyVRAM()
 	shortCopy ((u16*)BG_MAP_1, ((u16*)&(g_BGManager.ghost_VRAM[0])), (sizeof(TileData) * 16 * 32));
 }
 
-int turtleArray[] = {0,16,80,96,176,192,240,496};
 
+
+
+//race = 3, turtle/log = 1
 void ZManager_CreateGOLine(int gameZone, int y)
 {
 	int direction = ((g_BGManager.lineCreated % 2) + 2);//will be either 2 or 3. ENUM_DIR_LEFT or ENUM_DIR_RIGHT
 	int randOffset = RandomRange(10, SCREEN_WIDTH);
 	if (gameZone == 0)//Road
 	{
-
+		int i = 0;
+		for (i = 0; i < 2; i ++)
+		{
+			GOFactory_New(ENUM_GOTYPE_CAR_RACE, randOffset + logArray[i], y, direction, 3);
+		}
 
 	}
 	else if (gameZone == 1)//water
@@ -160,9 +189,17 @@ void ZManager_CreateGOLine(int gameZone, int y)
 		if (randObject == 0)//Spawn Turtles
 		{
 			int i = 0;
-			for (i = 0; i < (sizeof(turtleArray) / sizeof(int)); i ++)
+			for (i = 0; i < 14; i ++)
 			{
-				GOFactory_New(ENUM_GOTYPE_TURTLE_SAFE, randOffset + turtleArray[i], y, ENUM_DIR_RIGHT, 20);
+				GOFactory_New(ENUM_GOTYPE_TURTLE_SAFE, randOffset + turtleArray[i], y, direction, 1);
+			}
+		}
+		if (randObject == 1)//Spawn Logs
+		{
+			int i = 0;
+			for (i = 0; i < 7; i ++)
+			{
+				GOFactory_New(ENUM_GOTYPE_LOG_MED, randOffset + logArray[i], y, direction, 1);
 			}
 		}
 
@@ -183,25 +220,12 @@ void ZManager_ShiftUp()
  		if (randZone == 0)
  		{
  			shortCopy(((u16*)(g_ZManager.curZone)), (u16*)g_gameSquares.road, (4)); 
- 			int i;
- 			for(i = 0; i < g_ZManager.rowsRemain; i++)
- 			{
- 				GOFactory_New(ENUM_GOTYPE_CAR_RACE, RandomRange(10, SCREEN_WIDTH), -32 - (16 * i + 1), ENUM_DIR_RIGHT, 20);
- 			}
+ 			g_ZManager.enumCurZone = ENUM_ZONE_ROAD;
  		}
  		else if (randZone == 1)
  		{
  			shortCopy(((u16*)(g_ZManager.curZone)), (u16*)g_gameSquares.water, (4)); 
- 			int i;
- 			for(i = 0; i < g_ZManager.rowsRemain; i++)
- 			{
- 				int randGO = RandomRange(0, 3);
- 				if(randGO == 0)
- 					//GOFactory_New(ENUM_GOTYPE_TURTLE_SAFE, RandomRange(10, SCREEN_WIDTH), -31 - (16 * i + 1), ENUM_DIR_RIGHT, 20);
- 					ZManager_CreateGOLine(1, -31 - (16 * i + 1));
- 				else if(randGO == 1)
- 					GOFactory_New(ENUM_GOTYPE_LOG_MED, RandomRange(10, SCREEN_WIDTH), -31 - (16 * i + 1), ENUM_DIR_RIGHT, 20);
- 			}
+ 			g_ZManager.enumCurZone = ENUM_ZONE_WATER;
  		}
 
  		BGManager_ShiftUp(g_gameSquares.brick);
@@ -209,6 +233,7 @@ void ZManager_ShiftUp()
  	else
  	{
  		BGManager_ShiftUp(g_ZManager.curZone);
+ 		ZManager_CreateGOLine(g_ZManager.enumCurZone, -16);
 		g_ZManager.rowsRemain --;
  	}
 

@@ -43,6 +43,7 @@ typedef struct
 typedef struct 
 {
 	int rowsRemain;
+	int enumCurZone;
 	Square curZone;
 }ZONEManager;
 
@@ -71,6 +72,7 @@ int BGManager_GetTile(int x, int y);
 
 void BGManager_CopyVRAM();
 
+void ZManager_CreateGOLine(int gameZone, int y);
 
 void ZManager_ShiftUp();
 

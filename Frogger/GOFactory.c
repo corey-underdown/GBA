@@ -207,6 +207,7 @@ GameObject* GOFactory_New(int enum_type, int posX, int posY, int enum_dir, int s
 			}
 			else if (enum_type == ENUM_GOTYPE_TURTLE_SAFE)
 			{
+			g_GOFactory.GOList[i].timer = 240;
 			//Extra checks because corey can't draw sprites the right way
 			//Set Flip to direction of type.
 			if (enum_dir == ENUM_DIR_LEFT)

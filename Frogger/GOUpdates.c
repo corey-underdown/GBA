@@ -76,11 +76,13 @@ void GO_Update_Turtle(int num)
 		{
 			this->sprite->tileIndex = 36;
 			this->type = ENUM_GOTYPE_TURTLE_TEMP;
+			this->timer /= 3;
 		} 
 		else
 		{
 			this->sprite->tileIndex = 32;
 			this->type = ENUM_GOTYPE_TURTLE_SAFE;
+			this->timer *= 3;
 		}
 
 		this->counter = 0;

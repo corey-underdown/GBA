@@ -261,8 +261,21 @@ void GOFactory_Delete(GameObject* gameobject)
 		//set index to be 200 
 		*(gameobject->index) = 200;
 		//Set sprite data to be not displayed 
-		gameobject->sprite->y = 500;
+		gameobject->sprite->y = 300;
+		gameobject->sprite->x = 320;
 		gameobject->sprite->tileIndex = 0;
+		gameobject->sprite->shape = 0;
+		gameobject->sprite->size = 0;
+
+		gameobject->sprite = 0;
+		gameobject->index = 0;
+
+		gameobject->z_Depth = 200;
+		gameobject->speed = 0;
+		gameobject->enum_dir = 0;
+		gameobject->counter = 0;
+		gameobject->timer = 0;
+		gameobject->Update = &GO_Update_Default;
 
 		GOFactory_Sort();
 	}
@@ -281,6 +294,8 @@ void GOFactory_DeleteAll()
 		g_GOFactory.GOList[i].sprite->y = 300;
 		g_GOFactory.GOList[i].sprite->x = 320;
 		g_GOFactory.GOList[i].sprite->tileIndex = 0;
+		g_GOFactory.GOList[i].sprite->shape = 0;
+		g_GOFactory.GOList[i].sprite->size = 0;
 
 		g_GOFactory.GOList[i].sprite = 0;
 		g_GOFactory.GOList[i].index = 0;

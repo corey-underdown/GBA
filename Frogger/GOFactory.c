@@ -3,6 +3,7 @@
 #include "images/GO_Tiles.h"
 #include "GOUpdates.h"
 #include "TextManager.h"
+#include "BGManager.h"
 
 
 GOFactory g_GOFactory;
@@ -281,6 +282,9 @@ void GOFactory_DeleteAll()
 		g_GOFactory.GOList[i].sprite->x = 320;
 		g_GOFactory.GOList[i].sprite->tileIndex = 0;
 
+		g_GOFactory.GOList[i].sprite = 0;
+		g_GOFactory.GOList[i].index = 0;
+
 		g_GOFactory.GOList[i].z_Depth = 200;
 		g_GOFactory.GOList[i].speed = 0;
 		g_GOFactory.GOList[i].enum_dir = 0;
@@ -289,6 +293,8 @@ void GOFactory_DeleteAll()
 		g_GOFactory.GOList[i].Update = &GO_Update_Default;
 	}
 	g_GOFactory.goCount = 0;
+	g_ZManager.rowsRemain = 0;
+
 	GOFactory_Sort();
 	GOFactory_CopytoOAM();
 }
